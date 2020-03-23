@@ -1,0 +1,15 @@
+type Query {
+  hello: String!
+}
+
+type Command {
+  action: String
+}
+
+type Mutation {
+  sendCommand(action: String!): Command
+}
+
+type Subscription {
+  command: Command
+}

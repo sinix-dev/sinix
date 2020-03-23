@@ -1,3 +1,15 @@
+const ws = new WebSocket("ws://lisa.com:4143/subscriptions", "graphql-ws")
+
+ws.onopen = function() {
+  console.log("Socket Open")
+  ws.send(`{"type":"connection_init","payload":{}}`)
+  ws.send('{"id":"1","type":"start","payload":{"variables":{},"extensions":{},"operationName":null,"query":"subscription { command { action }}"}}')
+};
+
+ws.onmessage = function(event) {
+  console.log(event.data)
+}
+
 const DIRECTION_MAP = [
   { Y: 1, X: 0 }, // DOWN
   { Y: 0, X: -1 }, // LEFT

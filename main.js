@@ -1,13 +1,22 @@
 const path = require('path')
 const express = require('express');
-const { GraphQLServer } = require('graphql-yoga')
+const { GraphQLServer, PubSub } = require('graphql-yoga')
 
-const typeDefs = require('./src/typedefs')
-const resolvers = require('./src/resolvers')
+const Mutation = require('./src/mutation')
+const Subscription = require('./src/subscription')
+
+const resolvers = {
+ Mutation,
+ Subscription
+}
+
+
+const pubsub = new PubSub()
 
 const server = new GraphQLServer({
-  typeDefs,
-  resolvers
+  typeDefs: './schema.graphql',
+  resolvers,
+  context: { pubsub }
 })
 
 const options = {
