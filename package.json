@@ -1,0 +1,15 @@
+{
+  "name": "minix",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": "Sanket Chaudhari",
+  "license": "MIT",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.6.0"
+  }
+}
