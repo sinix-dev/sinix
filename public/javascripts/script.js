@@ -1,86 +1,109 @@
-// Listen for animate update
-document.onkeydown = (eve) => {
-  if (eve.key == "a") {
-    direction = "left"
+const DIRECTION_MAP = [
+  { Y: 1, X: 0 }, // DOWN
+  { Y: 0, X: -1 }, // LEFT
+  { Y: -1, X: 0 }, // UP
+  { Y: 0, X: 1 }, // RIGHT
+]
+
+class Keyboard {
+  constructor() {
+    this.pressed = {}
+    this.latest = undefined
   }
-  else if (eve.key == "s") {
-    direction = "down"
-  }
-  else if (eve.key == "d") {
-    direction = "right"
-  }
-  else if (eve.key == "w") {
-    direction = "up"
+
+  watch(el) {
+    el.addEventListener('keydown', (e) => {
+      this.pressed[e.key.toLowerCase()] = true
+      this.latest = e.key.toLowerCase()
+    })
+    el.addEventListener('keyup', (e) => {
+      this.pressed[e.key.toLowerCase()] = false
+    })
   }
 }
 
+class Player {
+  size = 30
+  speed = 3
+  color = 0xDC143C
+  direction = 0
+
+  constructor() {
+
+    this.pixi = new PIXI.Graphics()
+    this.position = {
+      x: 100,
+      y: 100
+    }
+  }
+
+  render() {
+    this.handler()
+    this.updatePosition()
+
+    this.pixi.clear()
+    this.pixi.beginFill(this.color)
+    this.pixi.drawRect(this.position.x, this.position.y, this.size, this.size)
+    this.pixi.endFill()
+  }
+
+  updatePosition() {
+    var new_x = this.position.x + DIRECTION_MAP[this.direction].X * this.speed
+    var new_y = this.position.y + DIRECTION_MAP[this.direction].Y * this.speed
+
+    if (new_x < 0) {
+      new_x = 0
+    } else if (new_x > app.screen.width - this.size) {
+      new_x = app.renderer.screen.width - this.size
+    }
+
+    if (new_y < 0) {
+      new_y = 0
+    } else if (new_y > app.screen.height - this.size) {
+      new_y = app.renderer.screen.height - this.size
+    }
+
+    this.position.x = new_x
+    this.position.y = new_y
+  }
+
+  turn(_direction) {
+
+    this.direction = (this.direction + _direction + 4) % 4
+  }
+
+  handler() {
+    if (keyboard.latest == 'f') {
+      this.turn(-1)
+    } else if (keyboard.latest == 'j') {
+      this.turn(1)
+    }
+
+    keyboard.latest = undefined
+  }
+}
+
+const keyboard = new Keyboard()
 const app = new PIXI.Application({ antialias: true });
-document.body.appendChild(app.view);
 
-const graphics = new PIXI.Graphics();
+keyboard.watch(document)
+document.body.appendChild(app.view)
 
-// let's create a moving shape
-const thing = new PIXI.Graphics();
-app.stage.addChild(thing);
-thing.x = 0;
-thing.y = 0;
+const player = new Player()
+app.stage.addChild(player.pixi)
 
-let right = 0;
-let down = 0;
-let up = 0;
-let left = 0;
-let size = 30;
-let direction = "right"
-
-
-app.ticker.add((delta) => {
-
-  if (direction == "down") {
-    down += 2
-  }
-  else if (direction == "right") {
-    right += 2
-  }
-  else if (direction == "left") {
-    right -= 2
-  }
-  else if (direction == "up") {
-    down -= 2
-  }
-
-  if (app.renderer.screen.width - size <= right) {
-    right = app.renderer.screen.width - size
-  }
-  else if (right <= 0) {
-    right = 0
-  }
-
-  if (app.renderer.screen.height - size <= down) {
-    down = app.renderer.screen.height - size
-  }
-  else if (down <= 0) {
-    down = 0
-  }
-
-  thing.clear();
-  thing.beginFill(0xDE3249);
-  thing.drawRect(right, down, size, size);
-  thing.endFill();
+app.ticker.add(() => {
+  player.render()
 });
 
 
 // Listen for window resize events
-window.addEventListener('resize', resize);
+window.addEventListener('resize', resize)
 
 // Resize function window
 function resize() {
-	// Resize the renderer
-	app.renderer.resize(window.innerWidth, window.innerHeight);
-  
-  // You can use the 'screen' property as the renderer visible
-  // area, this is more useful than view.width/height because
-  // it handles resolution
-  rect.position.set(app.screen.width, app.screen.height);
+  // Resize the renderer
+  app.renderer.resize(window.innerWidth, window.innerHeight)
 }
 
-resize();
+resize()
