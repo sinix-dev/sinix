@@ -2,10 +2,12 @@ const path = require('path')
 const express = require('express');
 const { GraphQLServer, PubSub } = require('graphql-yoga')
 
+const Query = require('./src/query')
 const Mutation = require('./src/mutation')
 const Subscription = require('./src/subscription')
 
 const resolvers = {
+  Query,
   Mutation,
   Subscription
 }
