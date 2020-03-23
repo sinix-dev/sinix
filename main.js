@@ -1,21 +1,21 @@
 const path = require('path')
 const express = require('express');
-const graphqlHTTP = require('express-graphql');
+const { GraphQLServer } = require('graphql-yoga')
 
-const schema = require('./src/schema')
-const root = require('./src/resolver')
+const typeDefs = require('./src/typedefs')
+const resolvers = require('./src/resolvers')
 
-const app = express();
+const server = new GraphQLServer({
+  typeDefs,
+  resolvers
+})
 
-app.use(
-  '/graphql',
-  graphqlHTTP({
-    schema: schema,
-    graphiql: true,
-    rootValue: root
-  }),
-);
+const options = {
+  port: 4143,
+  endpoint: '/graphql',
+  playground: '/playground',
+  subscriptions: '/subscriptions',
+}
 
-app.use(express.static(path.join(__dirname, 'public')))
-
-app.listen(4000);
+server.express.use("/", express.static(path.join(__dirname, 'public')))
+server.start(options, () => console.log('Server started.'))

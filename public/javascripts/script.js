@@ -23,8 +23,8 @@ class Keyboard {
 }
 
 class Player {
-  size = 30
-  speed = 3
+  size = 50
+  speed = 10
   color = 0xDC143C
   direction = 0
 
@@ -84,7 +84,7 @@ class Player {
 }
 
 const keyboard = new Keyboard()
-const app = new PIXI.Application({ antialias: true });
+const app = new PIXI.Application({backgroundColor: 0xFFFFFF, antialias: true });
 
 keyboard.watch(document)
 document.body.appendChild(app.view)
