@@ -3,11 +3,12 @@ type Query {
 }
 
 type Command {
-  action: String
+  type: String
+  value: String
 }
 
 type Mutation {
-  sendCommand(action: String!): Command
+  sendCommand(type: String, value: String): Command
 }
 
 type Subscription {

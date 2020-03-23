@@ -6,8 +6,8 @@ const Mutation = require('./src/mutation')
 const Subscription = require('./src/subscription')
 
 const resolvers = {
- Mutation,
- Subscription
+  Mutation,
+  Subscription
 }
 
 

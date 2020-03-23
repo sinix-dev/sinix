@@ -1,14 +1,21 @@
 const ws = new WebSocket("ws://lisa.com:4143/subscriptions", "graphql-ws")
 
-ws.onopen = function() {
+ws.onopen = function () {
   console.log("Socket Open")
-  ws.send(`{"type":"connection_init","payload":{}}`)
-  ws.send('{"id":"1","type":"start","payload":{"variables":{},"extensions":{},"operationName":null,"query":"subscription { command { action }}"}}')
+  ws.send(`{"type":"connection_init"}`)
+  ws.send('{"type": "start", "payload":{"query":"subscription { command { type value }}"}}')
 };
 
-ws.onmessage = function(event) {
-  console.log(event.data)
+ws.onmessage = function (e) {
+  let response = JSON.parse(e.data)
+  if (response.type == "error") {
+    console.log(data.payload.message)
+  }
+  else if (response.type == "data") {
+    PLAYER_COMMANDS.push(response.payload.data.command)
+  }
 }
+const PLAYER_COMMANDS = []
 
 const DIRECTION_MAP = [
   { Y: 1, X: 0 }, // DOWN
@@ -85,6 +92,12 @@ class Player {
   }
 
   handler() {
+    this.keypressHandler()
+    this.commandHandler()
+  }
+
+  keypressHandler() {
+
     if (keyboard.latest == 'f') {
       this.turn(-1)
     } else if (keyboard.latest == 'j') {
@@ -93,10 +106,25 @@ class Player {
 
     keyboard.latest = undefined
   }
+
+  commandHandler() {
+
+    if (PLAYER_COMMANDS.length > 0) {
+      let command = PLAYER_COMMANDS.pop()
+      if (command.type == "turn") {
+        let turnMap = {
+          "left": -1,
+          "right": 1
+        }
+
+        this.turn(turnMap[command.value])
+      }
+    }
+  }
 }
 
 const keyboard = new Keyboard()
-const app = new PIXI.Application({backgroundColor: 0xFFFFFF, antialias: true });
+const app = new PIXI.Application({ backgroundColor: 0xFFFFFF, antialias: true });
 
 keyboard.watch(document)
 document.body.appendChild(app.view)
