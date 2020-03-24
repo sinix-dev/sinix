@@ -24,6 +24,24 @@ const DIRECTION_MAP = [
   { Y: 0, X: 1 }, // RIGHT
 ]
 
+const WORLD_MAP = {
+  width: 18,
+  height: 10,
+  tiles: [
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ],
+  graphics: []
+}
+
 class Keyboard {
   constructor() {
     this.pressed = {}
@@ -128,6 +146,28 @@ const app = new PIXI.Application({ backgroundColor: 0xFFFFFF, antialias: true })
 
 keyboard.watch(document)
 document.body.appendChild(app.view)
+
+const TILES = []
+for(var i = 0; i < WORLD_MAP.tiles.length; i++){
+  tile_width = Math.floor(window.innerWidth / WORLD_MAP.width)
+  tile_height = Math.floor(window.innerHeight / WORLD_MAP.height)
+
+  if(WORLD_MAP.tiles[i]){
+    x = (i % WORLD_MAP.width) * tile_width
+    y = Math.floor(i / WORLD_MAP.width) * tile_height
+
+    var temp = new PIXI.Graphics()
+    temp.beginFill(0x000000)
+    temp.drawRect(x, y, tile_width, tile_height)
+    temp.endFill()
+
+    WORLD_MAP.graphics.push(temp)
+  }
+}
+
+for(var i in WORLD_MAP.graphics){
+  app.stage.addChild(WORLD_MAP.graphics[i])
+}
 
 const player = new Player()
 app.stage.addChild(player.pixi)
