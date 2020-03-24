@@ -184,12 +184,21 @@ keyboard.watch(document)
 document.body.appendChild(app.view)
 
 const TILES = []
+
+while (true) {
+  diamond_tile = Math.floor(Math.random() * 100) % WORLD_MAP.tiles.length
+  if (WORLD_MAP.tiles[diamond_tile] == 0) {
+    WORLD_MAP.tiles[diamond_tile] = 1
+  }
+  console.log(diamond_tile)
+  break;
+}
+
 for (var i = 0; i < WORLD_MAP.tiles.length; i++) {
-  if (WORLD_MAP.tiles[i]) {
+  if (WORLD_MAP.tiles[i] == 1) {
     x = (i % WORLD_MAP.width) * WORLD_MAP.tile_width
     y = Math.floor(i / WORLD_MAP.width) * WORLD_MAP.tile_height
 
-    console.log(x, y)
     var temp = new PIXI.Graphics()
     temp.beginFill(0x000000)
     temp.drawRect(x, y, WORLD_MAP.tile_width, WORLD_MAP.tile_height)
