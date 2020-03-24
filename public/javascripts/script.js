@@ -15,6 +15,7 @@ ws.onmessage = function (e) {
     PLAYER_COMMANDS.push(response.payload.data.command)
   }
 }
+
 const PLAYER_COMMANDS = []
 
 const DIRECTION_MAP = [
@@ -63,13 +64,11 @@ class Keyboard {
 
 class Player {
   size = 50
-  speed = 10
-  color = 0xDC143C
+  speed = 12
+  color = 'crimson'
   direction = 2
 
   constructor() {
-
-    this.pixi = new PIXI.Graphics()
     this.position = {
       x: 500,
       y: 500
@@ -80,10 +79,8 @@ class Player {
     this.handler()
     this.updatePosition()
 
-    this.pixi.clear()
-    this.pixi.beginFill(this.color)
-    this.pixi.drawRect(this.position.x, this.position.y, this.size, this.size)
-    this.pixi.endFill()
+    canvas.context.fillStyle = this.color
+    canvas.context.fillRect(this.position.x, this.position.y, this.size, this.size)
   }
 
   updatePosition() {
@@ -92,14 +89,14 @@ class Player {
 
     if (new_x < 0) {
       new_x = 0
-    } else if (new_x > app.screen.width - this.size) {
-      new_x = app.renderer.screen.width - this.size
+    } else if (new_x > canvas.element.width - this.size) {
+      new_x = canvas.element.width - this.size
     }
 
     if (new_y < 0) {
       new_y = 0
-    } else if (new_y > app.screen.height - this.size) {
-      new_y = app.renderer.screen.height - this.size
+    } else if (new_y > canvas.element.height - this.size) {
+      new_y = canvas.element.height - this.size
     }
 
     var tile_1, tile_2
@@ -177,56 +174,57 @@ class Player {
   }
 }
 
+class Canvas {
+  constructor(_id) {
+    this.element = document.getElementById(_id)
+    this.context = this.element.getContext('2d')
+
+    this.element.width = window.innerWidth
+    this.element.height = window.innerHeight
+  }
+}
+
+function drawGame() {
+
+  canvas.context.fillStyle = 'black';
+  canvas.context.fillRect(0, 0, canvas.element.width, canvas.element.height);
+  canvas.context.fillStyle = 'white'
+
+  for (var i = 0; i < WORLD_MAP.graphics.length; i++) {
+    canvas.context.fillRect(WORLD_MAP.graphics[i].x, WORLD_MAP.graphics[i].y, WORLD_MAP.tile_width, WORLD_MAP.tile_height)
+  }
+
+  player.render()
+  window.requestAnimationFrame(drawGame);
+}
+
+const canvas = new Canvas('gameCanvas')
+const player = new Player()
 const keyboard = new Keyboard()
-const app = new PIXI.Application({ backgroundColor: 0xFFFFFF, antialias: true });
-
-keyboard.watch(document)
-document.body.appendChild(app.view)
-
-const TILES = []
 
 while (true) {
-  diamond_tile = Math.floor(Math.random() * 100) % WORLD_MAP.tiles.length
-  if (WORLD_MAP.tiles[diamond_tile] == 0) {
-    WORLD_MAP.tiles[diamond_tile] = 1
+  extra_tile = Math.floor(Math.random() * 100) % WORLD_MAP.tiles.length
+  if (WORLD_MAP.tiles[extra_tile] == 0) {
+    WORLD_MAP.tiles[extra_tile] = 1
+    break;
   }
-  console.log(diamond_tile)
-  break;
 }
 
 for (var i = 0; i < WORLD_MAP.tiles.length; i++) {
   if (WORLD_MAP.tiles[i] == 1) {
     x = (i % WORLD_MAP.width) * WORLD_MAP.tile_width
     y = Math.floor(i / WORLD_MAP.width) * WORLD_MAP.tile_height
-
-    var temp = new PIXI.Graphics()
-    temp.beginFill(0x000000)
-    temp.drawRect(x, y, WORLD_MAP.tile_width, WORLD_MAP.tile_height)
-    temp.endFill()
-
-    WORLD_MAP.graphics.push(temp)
+    WORLD_MAP.graphics.push({
+      x: x,
+      y: y,
+    })
   }
 }
 
-for (var i in WORLD_MAP.graphics) {
-  app.stage.addChild(WORLD_MAP.graphics[i])
-}
+keyboard.watch(document)
+window.requestAnimationFrame(drawGame);
 
-const player = new Player()
-app.stage.addChild(player.pixi)
-
-app.ticker.add(() => {
-  player.render()
-});
-
-
-// Listen for window resize events
-window.addEventListener('resize', resize)
-
-// Resize function window
-function resize() {
-  // Resize the renderer
-  app.renderer.resize(window.innerWidth, window.innerHeight)
-}
-
-resize()
+window.addEventListener('resize', function(){
+  canvas.element.width = window.innerWidth
+  canvas.element.height = window.innerHeight
+})
