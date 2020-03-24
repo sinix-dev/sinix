@@ -27,14 +27,16 @@ const DIRECTION_MAP = [
 const WORLD_MAP = {
   width: 18,
   height: 10,
+  tile_width: Math.floor(window.screen.width / 18),
+  tile_height: Math.floor(window.screen.height / 10),
   tiles: [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
+    0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
     0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
-    0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -63,14 +65,14 @@ class Player {
   size = 50
   speed = 10
   color = 0xDC143C
-  direction = 0
+  direction = 2
 
   constructor() {
 
     this.pixi = new PIXI.Graphics()
     this.position = {
-      x: 100,
-      y: 100
+      x: 500,
+      y: 500
     }
   }
 
@@ -100,6 +102,40 @@ class Player {
       new_y = app.renderer.screen.height - this.size
     }
 
+    var tile_1, tile_2
+    if (this.direction == 0) {
+      // DOWN
+      tile_1 = Math.floor((new_y + this.size) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor(new_x / WORLD_MAP.tile_width)
+      tile_2 = Math.floor((new_y + this.size) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor((new_x + this.size - 2) / WORLD_MAP.tile_width)
+
+      if (WORLD_MAP.tiles[tile_1] || WORLD_MAP.tiles[tile_2]) {
+        new_y = Math.floor(tile_1 / WORLD_MAP.width) * WORLD_MAP.tile_height - this.size
+      }
+    } else if (this.direction == 1) {
+      // LEFT
+      tile_1 = Math.floor((new_y) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor(new_x / WORLD_MAP.tile_width)
+      tile_2 = Math.floor((new_y + this.size - 2) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor((new_x) / WORLD_MAP.tile_width)
+
+      if (WORLD_MAP.tiles[tile_1] || WORLD_MAP.tiles[tile_2]) {
+        new_x = (tile_1 % WORLD_MAP.width) * WORLD_MAP.tile_width + WORLD_MAP.tile_width
+      }
+    } else if (this.direction == 2) {
+      // UP
+      tile_1 = Math.floor((new_y) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor(new_x / WORLD_MAP.tile_width)
+      tile_2 = Math.floor((new_y) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor((new_x + this.size - 2) / WORLD_MAP.tile_width)
+
+      if (WORLD_MAP.tiles[tile_1] || WORLD_MAP.tiles[tile_2]) {
+        new_y = Math.floor(tile_1 / WORLD_MAP.width) * WORLD_MAP.tile_height + WORLD_MAP.tile_height
+      }
+    } else if (this.direction == 3) {
+      // RIGHT
+      tile_1 = Math.floor((new_y) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor((new_x + this.size) / WORLD_MAP.tile_width)
+      tile_2 = Math.floor((new_y + this.size - 2) / WORLD_MAP.tile_height) * WORLD_MAP.width + Math.floor((new_x + this.size) / WORLD_MAP.tile_width)
+
+      if (WORLD_MAP.tiles[tile_1] || WORLD_MAP.tiles[tile_2]) {
+        new_x = (tile_1 % WORLD_MAP.width) * WORLD_MAP.tile_width - this.size
+      }
+    }
     this.position.x = new_x
     this.position.y = new_y
   }
@@ -148,24 +184,22 @@ keyboard.watch(document)
 document.body.appendChild(app.view)
 
 const TILES = []
-for(var i = 0; i < WORLD_MAP.tiles.length; i++){
-  tile_width = Math.floor(window.innerWidth / WORLD_MAP.width)
-  tile_height = Math.floor(window.innerHeight / WORLD_MAP.height)
+for (var i = 0; i < WORLD_MAP.tiles.length; i++) {
+  if (WORLD_MAP.tiles[i]) {
+    x = (i % WORLD_MAP.width) * WORLD_MAP.tile_width
+    y = Math.floor(i / WORLD_MAP.width) * WORLD_MAP.tile_height
 
-  if(WORLD_MAP.tiles[i]){
-    x = (i % WORLD_MAP.width) * tile_width
-    y = Math.floor(i / WORLD_MAP.width) * tile_height
-
+    console.log(x, y)
     var temp = new PIXI.Graphics()
     temp.beginFill(0x000000)
-    temp.drawRect(x, y, tile_width, tile_height)
+    temp.drawRect(x, y, WORLD_MAP.tile_width, WORLD_MAP.tile_height)
     temp.endFill()
 
     WORLD_MAP.graphics.push(temp)
   }
 }
 
-for(var i in WORLD_MAP.graphics){
+for (var i in WORLD_MAP.graphics) {
   app.stage.addChild(WORLD_MAP.graphics[i])
 }
 
