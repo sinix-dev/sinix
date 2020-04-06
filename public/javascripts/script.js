@@ -224,7 +224,7 @@ for (var i = 0; i < WORLD_MAP.tiles.length; i++) {
 keyboard.watch(document)
 window.requestAnimationFrame(drawGame);
 
-window.addEventListener('resize', function(){
+window.addEventListener('resize', function () {
   canvas.element.width = window.innerWidth
   canvas.element.height = window.innerHeight
 })

@@ -5,7 +5,8 @@
   "author": "Sanket Chaudhari",
   "license": "MIT",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "lint": "jshint ."
   },
   "dependencies": {
     "electron": "^8.1.1",
@@ -14,5 +15,8 @@
   },
   "resolutions": {
     "minimist": "^1.2.2"
+  },
+  "devDependencies": {
+    "jshint": "^2.11.0"
   }
 }
