@@ -1,4 +1,4 @@
-# Minix
+# Sinix
 
 ### How to run
 ```sh
