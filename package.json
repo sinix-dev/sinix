@@ -11,7 +11,7 @@
   "dependencies": {
     "electron": "^8.1.1",
     "express": "^4.17.1",
-    "graphql-yoga": "^1.18.3"
+    "socket.io": "^2.3.0"
   },
   "resolutions": {
     "minimist": "^1.2.2"

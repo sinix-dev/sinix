@@ -1,36 +1,15 @@
 const path = require('path')
 const express = require('express');
-const { GraphQLServer, PubSub } = require('graphql-yoga')
 const { app, BrowserWindow } = require('electron')
+const router = express()
+const http = require("http").createServer(router)
+const io = require("socket.io")(http)
+const socket = require("./src/socket")
 
-const Query = require('./src/query')
-const Mutation = require('./src/mutation')
-const Subscription = require('./src/subscription')
+const PORT = 41431
 
-const resolvers = {
-  Query,
-  Mutation,
-  Subscription
-}
+router.use(express.static(path.join(__dirname, 'public')))
 
-const pubsub = new PubSub()
-
-const server = new GraphQLServer({
-  typeDefs: './schema.graphql',
-  resolvers,
-  context: { pubsub }
-})
-
-const options = {
-  port: 4143,
-  endpoint: '/graphql',
-  playground: '/playground',
-  subscriptions: '/subscriptions',
-}
-
-server.express.use("/", express.static(path.join(__dirname, 'public')))
-
-let server_pr = server.start(options)
 let mainWindow
 
 app.on('ready', () => {
@@ -41,9 +20,11 @@ app.on('ready', () => {
     fullscreen: true
   })
 
-  server_pr.then(() => {
-    mainWindow.loadURL('http://localhost:4143')
+  http.listen(PORT, () => {
+    mainWindow.loadURL('http://localhost:41431')
   })
+
+  io.on("connection", socket)
 
   mainWindow.on('closed', function () {
     mainWindow = null

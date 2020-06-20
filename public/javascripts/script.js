@@ -1,4 +1,9 @@
 const ws = new WebSocket("ws://lisa.com:4143/subscriptions", "graphql-ws")
+const socket = io()
+
+socket.on("message", (msg) => {
+  console.log(msg)
+})
 
 ws.onopen = function () {
   console.log("Socket Open")
