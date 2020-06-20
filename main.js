@@ -1,14 +1,25 @@
 const path = require('path')
 const express = require('express');
+const bodyParser = require('body-parser')
 const { app, BrowserWindow } = require('electron')
 const router = express()
 const http = require("http").createServer(router)
 const io = require("socket.io")(http)
 const socket = require("./src/socket")
+const routes = require("./src/routes")
 
 const PORT = 41431
 
+router.use(bodyParser.urlencoded({ extended: false }))
+router.use(bodyParser.json())
+
 router.use(express.static(path.join(__dirname, 'public')))
+router.use((req, res, next) => {
+  req.io = io
+  next()
+})
+
+router.use("/", routes)
 
 let mainWindow
 
@@ -20,15 +31,15 @@ app.on('ready', () => {
     fullscreen: true
   })
 
+  mainWindow.on('closed', function () {
+    mainWindow = null
+  })
+
   http.listen(PORT, () => {
     mainWindow.loadURL('http://localhost:41431')
   })
 
   io.on("connection", socket)
-
-  mainWindow.on('closed', function () {
-    mainWindow = null
-  })
 })
 
 app.on('window-all-closed', function () {

@@ -9,6 +9,7 @@
     "lint": "jshint ."
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "electron": "^8.1.1",
     "express": "^4.17.1",
     "socket.io": "^2.3.0"

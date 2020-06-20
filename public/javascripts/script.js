@@ -1,25 +1,28 @@
 const ws = new WebSocket("ws://lisa.com:4143/subscriptions", "graphql-ws")
 const socket = io()
 
-socket.on("message", (msg) => {
-  console.log(msg)
-})
-
-ws.onopen = function () {
-  console.log("Socket Open")
-  ws.send(`{"type":"connection_init"}`)
-  ws.send('{"type": "start", "payload":{"query":"subscription { command { type value }}"}}')
-};
-
-ws.onmessage = function (e) {
-  let response = JSON.parse(e.data)
-  if (response.type == "error") {
+socket.on("message", (response) => {
+  if(response.type == "error") {
     console.log(data.payload.message)
   }
   else if (response.type == "data") {
-    PLAYER_COMMANDS.push(response.payload.data.command)
-  }
-}
+    PLAYER_COMMANDS.push(response.payload)
+  } 
+})
+
+$.ajax({
+  method: "POST",
+  data: {
+    data: JSON.stringify({
+      payload: {
+        type: "turn",
+        value: "left"
+      },
+      type: "data"
+    })
+  },
+  url: "/command"
+})
 
 const PLAYER_COMMANDS = []
 

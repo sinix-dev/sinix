@@ -7,7 +7,9 @@
   <body>
     <canvas id="gameCanvas" width="100" height="100">
     </canvas>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/jquery-3.5.1.min.js"></script>
     <script src="/javascripts/script.js"></script>
   </body>
 </html>
