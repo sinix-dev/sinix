@@ -1,4 +1,3 @@
-const ws = new WebSocket("ws://lisa.com:4143/subscriptions", "graphql-ws")
 const socket = io()
 
 socket.on("message", (response) => {
@@ -10,27 +9,21 @@ socket.on("message", (response) => {
   } 
 })
 
-$.ajax({
-  method: "POST",
-  data: {
-    data: JSON.stringify({
-      payload: {
-        type: "turn",
-        value: "left"
-      },
-      type: "data"
-    })
-  },
-  url: "/command"
+socket.on("new", (response) => {
+  const player = new Player(response)
+  PLAYERS[player.id] = player
+
+  console.log(response)
 })
 
 const PLAYER_COMMANDS = []
+const PLAYERS = {}
 
 const DIRECTION_MAP = [
-  { Y: 1, X: 0 }, // DOWN
-  { Y: 0, X: -1 }, // LEFT
-  { Y: -1, X: 0 }, // UP
-  { Y: 0, X: 1 }, // RIGHT
+  { Y:  1, X:  0 }, // DOWN
+  { Y:  0, X: -1 }, // LEFT
+  { Y: -1, X:  0 }, // UP
+  { Y:  0, X:  1 }, // RIGHT
 ]
 
 const WORLD_MAP = {
@@ -71,24 +64,33 @@ class Keyboard {
 }
 
 class Player {
+  id = 0
   size = 50
-  speed = 12
+  speed = 8
   color = 'crimson'
   direction = 2
 
-  constructor() {
+  constructor(player) {
     this.position = {
       x: 500,
       y: 500
     }
+
+    this.color = "#" + player.color
+    this.id = player.id
   }
 
   render() {
-    this.handler()
     this.updatePosition()
 
     canvas.context.fillStyle = this.color
     canvas.context.fillRect(this.position.x, this.position.y, this.size, this.size)
+  }
+
+  update(command) {
+    this.render()
+    this.keypressHandler()
+    this.commandHandler(command)
   }
 
   updatePosition() {
@@ -146,17 +148,10 @@ class Player {
   }
 
   turn(_direction) {
-
     this.direction = (this.direction + _direction + 4) % 4
   }
 
-  handler() {
-    this.keypressHandler()
-    this.commandHandler()
-  }
-
   keypressHandler() {
-
     if (keyboard.latest == 'f') {
       this.turn(-1)
     } else if (keyboard.latest == 'j') {
@@ -166,18 +161,14 @@ class Player {
     keyboard.latest = undefined
   }
 
-  commandHandler() {
-
-    if (PLAYER_COMMANDS.length > 0) {
-      let command = PLAYER_COMMANDS.pop()
-      if (command.type == "turn") {
-        let turnMap = {
-          "left": -1,
-          "right": 1
-        }
-
-        this.turn(turnMap[command.value])
+  commandHandler(command) {
+    if (command.type === "turn") {
+      let turnMap = {
+        "left": -1,
+        "right": 1
       }
+
+      this.turn(turnMap[command.value])
     }
   }
 }
@@ -193,21 +184,31 @@ class Canvas {
 }
 
 function drawGame() {
-
   canvas.context.fillStyle = 'black';
   canvas.context.fillRect(0, 0, canvas.element.width, canvas.element.height);
   canvas.context.fillStyle = 'white'
 
-  for (var i = 0; i < WORLD_MAP.graphics.length; i++) {
+  for(let i = 0; i < WORLD_MAP.graphics.length; i++) {
     canvas.context.fillRect(WORLD_MAP.graphics[i].x, WORLD_MAP.graphics[i].y, WORLD_MAP.tile_width, WORLD_MAP.tile_height)
   }
 
-  player.render()
+  if(PLAYER_COMMANDS.length > 0){
+    let command = PLAYER_COMMANDS.shift()
+    player = PLAYERS[command.id]
+
+    if(player){
+      player.update(command)
+    }
+  }
+
+  for(player in PLAYERS){
+    PLAYERS[player].render()
+  }
+
   window.requestAnimationFrame(drawGame);
 }
 
 const canvas = new Canvas('gameCanvas')
-const player = new Player()
 const keyboard = new Keyboard()
 
 while (true) {
