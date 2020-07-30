@@ -208,7 +208,8 @@ function drawGame() {
   window.requestAnimationFrame(drawGame);
 }
 
-const canvas = new Canvas('gameCanvas')
+const canvas = new Canvas('screen')
+const player = new Player()
 const keyboard = new Keyboard()
 
 while (true) {
