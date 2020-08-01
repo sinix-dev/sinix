@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "tauri": "tauri"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/sanket143/sinix#readme",
   "dependencies": {
-    "phaser": "^3.24.1"
+    "live-server": "^1.2.1",
+    "phaser": "^3.24.1",
+    "tauri": "^0.11.0"
   }
 }
