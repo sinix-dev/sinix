@@ -22,8 +22,8 @@ type Clients = Arc<RwLock<HashMap<String, Client>>>;
 
 #[derive(Debug, Clone)]
 pub struct Client {
-  pub user_id: usize,
-  pub topics: Vec<String>,
+  pub username: String,
+  pub hue: usize,
   pub sender: Option<mpsc::UnboundedSender<std::result::Result<Message, warp::Error>>>,
 }
 
@@ -36,7 +36,7 @@ async fn main() {
   let register = warp::path("register");
   let register_routes = register
     .and(warp::post())
-    .and(warp::body::json())
+    .and(warp::body::form())
     .and(with_clients(clients.clone()))
     .and_then(handler::register_handler)
     .or(
@@ -62,33 +62,33 @@ async fn main() {
     .or(register_routes)
     .or(ws_route)
     .or(publish)
-    .with(warp::cors().allow_any_origin());
-
-  /*
-    tauri::AppBuilder::new()
-      .invoke_handler(|_webview, arg| {
-        use cmd::Cmd::*;
-        match serde_json::from_str(arg) {
-          Err(e) => {
-            Err(e.to_string())
-          }
-          Ok(command) => {
-            match command {
-              // definitions for your custom commands from Cmd here
-              MyCustomCommand { argument } => {
-                //  your command code
-                println!("{}", argument);
-              }
-            }
-            Ok(())
-          }
-        }
-      })
-      .build()
-      .run();
-  */
+    .with(warp::cors()
+      .allow_any_origin()
+      .allow_methods(vec!["GET", "POST", "DELETE", "OPTION"]));
 
   warp::serve(routes).run(([127, 0, 0, 1], 41431)).await;
+
+  tauri::AppBuilder::new()
+    .invoke_handler(|_webview, arg| {
+      use cmd::Cmd::*;
+      match serde_json::from_str(arg) {
+        Err(e) => {
+          Err(e.to_string())
+        }
+        Ok(command) => {
+          match command {
+            // definitions for your custom commands from Cmd here
+            MyCustomCommand { argument } => {
+              //  your command code
+              println!("{}", argument);
+            }
+          }
+          Ok(())
+        }
+      }
+    })
+    .build()
+    .run();
 }
 
 fn with_clients(clients: Clients) -> impl Filter<Extract = (Clients,), Error = Infallible> + Clone {

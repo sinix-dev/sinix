@@ -6,8 +6,10 @@ use tokio::sync::mpsc;
 use warp::ws::{Message, WebSocket};
 
 #[derive(Deserialize, Debug)]
-pub struct TopicsRequest {
-  topics: Vec<String>,
+pub struct Event {
+  event_type: String,
+  username: String,
+  payload: String,
 }
 
 pub async fn client_connection(ws: WebSocket, id: String, clients: Clients, mut client: Client) {
@@ -40,7 +42,7 @@ pub async fn client_connection(ws: WebSocket, id: String, clients: Clients, mut 
   println!("{} disconnected", id);
 }
 
-async fn client_msg(id: &str, msg: Message, clients: &Clients) {
+async fn client_msg(id: &str, msg: Message, _clients: &Clients) {
   println!("received message from {}: {:?}", id, msg);
   let message = match msg.to_str() {
     Ok(v) => v,
@@ -51,7 +53,7 @@ async fn client_msg(id: &str, msg: Message, clients: &Clients) {
     return;
   }
 
-  let topics_req: TopicsRequest = match from_str(&message) {
+  let event: Event = match from_str(&message) {
     Ok(v) => v,
     Err(e) => {
       eprintln!("error while parsing message to topics request: {}", e);
@@ -59,6 +61,9 @@ async fn client_msg(id: &str, msg: Message, clients: &Clients) {
     }
   };
 
+  println!("{:?}", event);
+
+  /*
   let mut locked = clients.write().await;
   match locked.get_mut(id) {
     Some(v) => {
@@ -66,4 +71,5 @@ async fn client_msg(id: &str, msg: Message, clients: &Clients) {
     }
     None => return,
   };
+  */
 }

@@ -1,60 +1,65 @@
 use crate::{ws, Client, Clients, Result};
 use serde::{Deserialize, Serialize};
-use uuid::Uuid;
+use rand::Rng;
 use warp::{http::StatusCode, reply::json, ws::Message, Reply};
 
 #[derive(Deserialize, Debug)]
 pub struct RegisterRequest {
-  user_id: usize,
+  username: String,
 }
 
 #[derive(Serialize, Debug)]
 pub struct RegisterResponse {
-  url: String,
+  hue: usize,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct Event {
-  topic: String,
-  user_id: Option<usize>,
-  message: String,
+  event_type: String,
+  username: String,
+  payload: String,
 }
 
 pub async fn publish_handler(body: Event, clients: Clients) -> Result<impl Reply> {
-  clients
+  let clients = clients
     .read()
-    .await
-    .iter()
-    .filter(|(_, client)| match body.user_id {
-      Some(v) => client.user_id == v,
-      None => true,
-    })
-    .filter(|(_, client)| client.topics.contains(&body.topic))
-    .for_each(|(_, client)| {
-      if let Some(sender) = &client.sender {
-        let _ = sender.send(Ok(Message::text(body.message.clone())));
-      }
-    });
+    .await;
+
+  let username = String::from(&body.username);
+
+  if !clients.contains_key(&username) {
+    println!("No such user");
+    return Ok(StatusCode::BAD_REQUEST);
+  }
+
+  let client = &clients[&username];
+
+  if let Some(sender) = &client.sender {
+    let _ = sender.send(Ok(Message::text(body.username.clone())));
+  }
 
   Ok(StatusCode::OK)
 }
 
 pub async fn register_handler(body: RegisterRequest, clients: Clients) -> Result<impl Reply> {
-  let user_id = body.user_id;
-  let uuid = Uuid::new_v4().simple().to_string();
+  let username = body.username;
+  let hue: usize = rand::thread_rng().gen_range(0, 360);
 
-  register_client(uuid.clone(), user_id, clients).await;
+  register_client(username.clone(), hue, clients).await;
+
   Ok(json(&RegisterResponse {
-    url: format!("ws://127.0.0.1:41431/ws/{}", uuid),
+    hue,
   }))
 }
 
-async fn register_client(id: String, user_id: usize, clients: Clients) {
+async fn register_client(username: String, hue: usize, clients: Clients) {
+  let username_copy = username.clone();
+
   clients.write().await.insert(
-    id,
+    username_copy,
     Client {
-      user_id,
-      topics: vec![String::from("cats")],
+      username,
+      hue,
       sender: None,
     },
   );
@@ -65,15 +70,14 @@ pub async fn unregister_handler(id: String, clients: Clients) -> Result<impl Rep
   Ok(StatusCode::OK)
 }
 
-pub async fn ws_handler(ws: warp::ws::Ws, id: String, clients: Clients) -> Result<impl Reply> {
-  let client = clients.read().await.get(&id).cloned();
+pub async fn ws_handler(ws: warp::ws::Ws, username: String, clients: Clients) -> Result<impl Reply> {
+  let client = clients.read().await.get(&username).cloned();
+
   match client {
     Some(c) => {
-      println!("Gotcha");
-      Ok(ws.on_upgrade(move |socket| ws::client_connection(socket, id, clients, c)))
+      Ok(ws.on_upgrade(move |socket| ws::client_connection(socket, username, clients, c)))
     }
     None => {
-      println!("Rejected");
       Err(warp::reject::not_found())
     }
   }
