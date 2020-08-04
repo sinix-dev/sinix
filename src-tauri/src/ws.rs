@@ -4,6 +4,7 @@ use serde::Deserialize;
 use serde_json::from_str;
 use tokio::sync::mpsc;
 use warp::ws::{Message, WebSocket};
+use json;
 
 #[derive(Deserialize, Debug)]
 pub struct Event {
@@ -43,15 +44,20 @@ pub async fn client_connection(ws: WebSocket, id: String, clients: Clients, mut 
 }
 
 async fn client_msg(id: &str, msg: Message, _clients: &Clients) {
-  println!("received message from {}: {:?}", id, msg);
+  println!("received message from {}: {}", id, msg.to_str().unwrap());
   let message = match msg.to_str() {
     Ok(v) => v,
     Err(_) => return,
   };
 
+  let payload = json::parse(message).unwrap();
+  println!("{} {}", payload["x"], payload["y"]);
+
   if message == "ping" || message == "ping\n" {
     return;
   }
+
+  return;
 
   let event: Event = match from_str(&message) {
     Ok(v) => v,

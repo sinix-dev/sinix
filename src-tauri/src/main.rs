@@ -12,6 +12,7 @@ use std::convert::Infallible;
 use std::sync::Arc;
 use tokio::sync::{mpsc, RwLock};
 use warp::{ws::Message, Filter, Rejection};
+use env_logger;
 
 mod cmd;
 mod handler;
@@ -29,6 +30,7 @@ pub struct Client {
 
 #[tokio::main]
 async fn main() {
+  env_logger::init();
   let clients: Clients = Arc::new(RwLock::new(HashMap::new()));
 
   let health_route = warp::path!("health").and_then(handler::health_handler);
@@ -66,7 +68,7 @@ async fn main() {
       .allow_any_origin()
       .allow_methods(vec!["GET", "POST", "DELETE", "OPTION"]));
 
-  warp::serve(routes).run(([127, 0, 0, 1], 41431)).await;
+  warp::serve(routes).run(([0, 0, 0, 0], 41431)).await;
 
   tauri::AppBuilder::new()
     .invoke_handler(|_webview, arg| {
