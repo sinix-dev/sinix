@@ -14,6 +14,8 @@ var Engine = Matter.Engine,
 var engine = Engine.create();
 engine.world.gravity.y = 0;
 
+var strike_audio = new Audio("assets/sounds/strike-01.mp3");
+
 var render = Render.create({
   element: document.body,
   engine: engine,
@@ -158,6 +160,12 @@ Events.on(engine, "collisionStart", function(event) {
   //var x = event.pairs[0].activeContacts[0].vertex.x
   //var y = event.pairs[0].activeContacts[0].vertex.y
   playerGround = true
+
+  if(event.pairs[0].id === "A5B6"){
+    strike_audio.volume = Math.min(event.pairs[0].bodyA.angularSpeed + event.pairs[0].bodyB.angularSpeed, 1);
+    strike_audio.currentTime = 0;
+    strike_audio.play();
+  }
 });
 
 // run the engine
