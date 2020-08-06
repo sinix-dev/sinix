@@ -14,6 +14,11 @@ var engine = Engine.create();
 engine.world.gravity.y = 0;
 
 var strike_audio = new Audio("assets/sounds/strike-01.mp3");
+var soundtrack = new Audio("assets/sounds/Eleven-Petals.mp3");
+
+soundtrack.loop = true;
+
+soundtrack.play()
 
 var render = Render.create({
   element: document.body,
@@ -49,36 +54,26 @@ World.add(engine.world, [
   })
 ]);
 
-/*
 // add some ramps to the world for the bodies to roll down
 World.add(engine.world, [
   //Bodies.rectangle(200, 150, 700, 20, { isStatic: true, angle: Math.PI * 0.06 }),
-  Bodies.rectangle(600, 350, 700, 20, {
+  Bodies.circle(width / 2, height / 2, 50, {
     isStatic: true,
     angle: -Math.PI * 0.1
-  }),
-  Bodies.rectangle(340, 580, 700, 20, {
-    isStatic: true,
-    angle: Math.PI * 0.06
   })
 ]);
-*/
 
 //adds some shapes
 var opponent = Bodies.polygon(400, 200, 5, 25, {
   friction: 1,
 });
 
-var opponent2 = Bodies.polygon(400, 200, 5, 25, {
-  friction: 1,
-});
-
 World.add(engine.world, opponent);
-World.add(engine.world, opponent2);
 
 //add the player
 var player = Bodies.polygon(100, 100, 5, 25, {
   friction: 1,
+  density: 0.001,
 });
 
 //populate world
@@ -104,6 +99,7 @@ Events.on(engine, "collisionStart", function(event) {
       player.ground = true;
     }
   }
+
 });
 //ongoing checks for collisions for player
 Events.on(engine, "collisionActive", function(event) {
@@ -128,11 +124,25 @@ Events.on(engine, 'collisionEnd', function(event) {
       player.ground = false;
     }
   }
+
+  var { bodyA, bodyB } = event.pairs[0]
+  // console.log(Math.pow(normal.x, 2) + Math.pow(normal.y, 2))
+
+  if(event.pairs[0].bodyA.label === "Polygon Body" &&
+    event.pairs[0].bodyB.label === "Polygon Body"
+  ){
+    console.log(event.pairs[0].collision.depth)
+    strike_audio.volume = Math.min(event.pairs[0].bodyA.angularSpeed + event.pairs[0].bodyB.angularSpeed, 1);
+    strike_audio.currentTime = 0;
+    strike_audio.play();
+  }
 })
 
 //main engine update loop
 Events.on(engine, "beforeTick", function(event) {
-  Matter.Body.setAngularVelocity(opponent, 0.6)
+  if(opponent.angularVelocity < 0.6){
+    opponent.torque = 0.1;
+  }
 
   if (keys[32]) {console.log(player)};
   //jump
@@ -167,11 +177,10 @@ Events.on(engine, "collisionStart", function(event) {
   //var x = event.pairs[0].activeContacts[0].vertex.x
   //var y = event.pairs[0].activeContacts[0].vertex.y
   playerGround = true
-  console.log(event.pairs[0].collision.penetration)
+  var { bodyA, bodyB } = event.pairs[0]
 
-  if(event.pairs[0].id === "A5B6" ||
-    event.pairs[0].id === "A5B7" ||
-    event.pairs[0].id === "A6B7"
+  if(event.pairs[0].bodyA.label === "Polygon Body" &&
+    event.pairs[0].bodyB.label === "Polygon Body"
   ){
     strike_audio.volume = Math.min(event.pairs[0].bodyA.angularSpeed + event.pairs[0].bodyB.angularSpeed, 1);
     strike_audio.currentTime = 0;
