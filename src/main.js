@@ -5,7 +5,9 @@ import {
   Events,
   Bodies,
   Body
-} from 'matter-js'
+} from "matter-js"
+import "./socket.js"
+
 
 const width = 1000
 const height = 600
@@ -69,7 +71,7 @@ const setup = () => {
     label: "Bey"
   });
 
-  const opponent_outline = Bodies.polygon(400, 200, 5, 15, {
+  const opponent_outline = Bodies.polygon(400, 200, 5, 20, {
     friction: 1,
     render: {
       fillStyle: "#000000"
@@ -90,7 +92,7 @@ const setup = () => {
     label: "Bey"
   });
 
-  const player_outline = Bodies.polygon(100, 100, 5, 15, {
+  const player_outline = Bodies.polygon(100, 100, 5, 20, {
     friction: 1,
     render: {
       fillStyle: "navy"
@@ -101,7 +103,7 @@ const setup = () => {
     parts: [player_body, player_outline]
   })
 
-  World.add(engine.world, player);
+  World.add(engine.world, player)
 
   /*
    * Keyboard Configurations
@@ -115,32 +117,34 @@ const setup = () => {
     keys[e.keyCode] = false
   })
 
-  Engine.run(engine);
-  Render.run(render);
+  Engine.run(engine)
+  Render.run(render)
 }
 
 const collisionListeners = () => {
+  const force = 0.002
+
   Events.on(engine, "beforeTick", function(event) {
     if(keys[87]){
-      player.force = {      x: 0,      y: -0.002    };
+      player.force = { x: 0, y: -force }
     }
     if(keys[83]){
-      player.force = {      x: 0,      y: 0.002    };
+      player.force = { x: 0, y: force }
     }
     if(keys[68]){
-      player.force = {      x: 0.002,      y: 0    };
+      player.force = { x: force, y: 0 }
     }
     if(keys[65]){
-      player.force = {      x: -0.002,      y: 0    };
+      player.force = { x: -force, y: 0 }
     }
 
     if (keys[37] && player.angularVelocity > -0.55) {
-      player.torque = -0.1;
-      opponent.torque = -0.1;
+      player.torque = -0.1
+      opponent.torque = -0.1
     } else {
       if (keys[39] && player.angularVelocity < 0.55) {
-        player.torque = 0.1;
-        opponent.torque = 0.1;
+        player.torque = 0.1
+        opponent.torque = 0.1
       }
     }
   })
@@ -149,8 +153,8 @@ const collisionListeners = () => {
     const { bodyA, bodyB } = event.pairs[0]
 
     if(bodyA.label === "Bey" && bodyB.label === "Bey"){
-      strike_audio.currentTime = 0;
-      strike_audio.play();
+      strike_audio.currentTime = 0
+      strike_audio.play()
     }
   })
 }

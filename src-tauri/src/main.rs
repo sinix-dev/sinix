@@ -64,7 +64,7 @@ async fn main() {
       .allow_any_origin()
       .allow_methods(vec!["GET", "POST", "DELETE", "OPTION"]));
 
-  warp::serve(routes).run(([0, 0, 0, 0], 41431));
+  warp::serve(routes).run(([0, 0, 0, 0], 41431)).await;
 
   tauri::AppBuilder::new()
     .invoke_handler(|_webview, arg| {
