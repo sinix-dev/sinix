@@ -1,4 +1,3 @@
-import App from './app.svelte';
 import * as Matter from 'matter-js';
 
 var width = 1000
@@ -29,7 +28,7 @@ var render = Render.create({
     wireframes: false,
     showVelocity: false,
     showAngleIndicator: false,
-    showCollisions: false
+    showCollisions: true
   }
 });
 
@@ -70,7 +69,12 @@ var opponent = Bodies.polygon(400, 200, 5, 25, {
   friction: 1,
 });
 
+var opponent2 = Bodies.polygon(400, 200, 5, 25, {
+  friction: 1,
+});
+
 World.add(engine.world, opponent);
+World.add(engine.world, opponent2);
 
 //add the player
 var player = Bodies.polygon(100, 100, 5, 25, {
@@ -128,6 +132,8 @@ Events.on(engine, 'collisionEnd', function(event) {
 
 //main engine update loop
 Events.on(engine, "beforeTick", function(event) {
+  Matter.Body.setAngularVelocity(opponent, 0.6)
+
   if (keys[32]) {console.log(player)};
   //jump
   if (keys[87]) {
@@ -142,12 +148,13 @@ Events.on(engine, "beforeTick", function(event) {
   if (keys[65]) {
     player.force = {      x: -0.002,      y: 0    };
   }
+
   //spin left and right
-  if (keys[37] && player.angularVelocity > -0.5) {
+  if (keys[37] && player.angularVelocity > -0.6) {
     player.torque = -0.1;
     opponent.torque = -0.1;
   } else {
-    if (keys[39] && player.angularVelocity < 0.5) {
+    if (keys[39] && player.angularVelocity < 0.6) {
       player.torque = 0.1;
       opponent.torque = 0.1;
     }
@@ -160,8 +167,12 @@ Events.on(engine, "collisionStart", function(event) {
   //var x = event.pairs[0].activeContacts[0].vertex.x
   //var y = event.pairs[0].activeContacts[0].vertex.y
   playerGround = true
+  console.log(event.pairs[0].collision.penetration)
 
-  if(event.pairs[0].id === "A5B6"){
+  if(event.pairs[0].id === "A5B6" ||
+    event.pairs[0].id === "A5B7" ||
+    event.pairs[0].id === "A6B7"
+  ){
     strike_audio.volume = Math.min(event.pairs[0].bodyA.angularSpeed + event.pairs[0].bodyB.angularSpeed, 1);
     strike_audio.currentTime = 0;
     strike_audio.play();
@@ -173,9 +184,3 @@ Engine.run(engine);
 
 // run the renderer
 Render.run(render);
-
-const app = new App({
-	target: document.body
-});
-
-export default app;
