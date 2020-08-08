@@ -9,10 +9,10 @@ use std::collections::HashMap;
 use std::convert::Infallible;
 use std::sync::Arc;
 
+use env_logger;
+use serde::Serialize;
 use tokio::sync::{mpsc, RwLock};
 use warp::{ws::Message, Filter, Rejection};
-use serde::{Serialize};
-use env_logger;
 
 mod cmd;
 mod handler;
@@ -69,9 +69,11 @@ async fn main() {
     .or(ws_route)
     .or(register_routes)
     .or(publish)
-    .with(warp::cors()
-      .allow_any_origin()
-      .allow_methods(vec!["GET", "POST", "DELETE", "OPTION"]));
+    .with(
+      warp::cors()
+        .allow_any_origin()
+        .allow_methods(vec!["GET", "POST", "DELETE", "OPTION"]),
+    );
 
   warp::serve(routes).run(([0, 0, 0, 0], 41431)).await;
 
@@ -81,9 +83,7 @@ async fn main() {
         use cmd::Cmd::*;
 
         match serde_json::from_str(arg) {
-          Err(e) => {
-            Err(e.to_string())
-          }
+          Err(e) => Err(e.to_string()),
           Ok(command) => {
             match command {
               MyCustomCommand { argument } => {

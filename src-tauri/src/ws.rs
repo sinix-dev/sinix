@@ -1,6 +1,6 @@
 use crate::{Client, Clients};
 use futures::{FutureExt, StreamExt};
-use serde::{Deserialize};
+use serde::Deserialize;
 use tokio::sync::mpsc;
 use warp::ws::{Message, WebSocket};
 
@@ -48,9 +48,7 @@ async fn client_msg(id: &str, msg: Message, clients: &Clients) {
     Err(_) => return,
   };
 
-  let clients = clients
-    .read()
-    .await;
+  let clients = clients.read().await;
 
   let client = &clients["sinix"];
 

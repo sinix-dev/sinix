@@ -1,6 +1,6 @@
 use crate::{ws, Client, Clients, Result};
-use serde::{Deserialize, Serialize};
 use rand::Rng;
+use serde::{Deserialize, Serialize};
 use warp::{http::StatusCode, reply::json, ws::Message, Reply};
 
 #[derive(Deserialize, Debug)]
@@ -21,9 +21,7 @@ pub struct Event {
 }
 
 pub async fn publish_handler(body: Event, clients: Clients) -> Result<impl Reply> {
-  let clients = clients
-    .read()
-    .await;
+  let clients = clients.read().await;
 
   let username = String::from(&body.username);
 
@@ -47,9 +45,7 @@ pub async fn register_handler(body: RegisterRequest, clients: Clients) -> Result
 
   register_client(username.clone(), hue, clients).await;
 
-  Ok(json(&RegisterResponse {
-    hue,
-  }))
+  Ok(json(&RegisterResponse { hue }))
 }
 
 async fn register_client(username: String, hue: usize, clients: Clients) {
@@ -70,16 +66,16 @@ pub async fn unregister_handler(id: String, clients: Clients) -> Result<impl Rep
   Ok(StatusCode::OK)
 }
 
-pub async fn ws_handler(ws: warp::ws::Ws, username: String, clients: Clients) -> Result<impl Reply> {
+pub async fn ws_handler(
+  ws: warp::ws::Ws,
+  username: String,
+  clients: Clients,
+) -> Result<impl Reply> {
   let client = clients.read().await.get(&username).cloned();
 
   match client {
-    Some(c) => {
-      Ok(ws.on_upgrade(move |socket| ws::client_connection(socket, username, clients, c)))
-    }
-    None => {
-      Err(warp::reject::not_found())
-    }
+    Some(c) => Ok(ws.on_upgrade(move |socket| ws::client_connection(socket, username, clients, c))),
+    None => Err(warp::reject::not_found()),
   }
 }
 
