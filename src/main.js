@@ -6,8 +6,7 @@ import {
   Bodies,
   Body
 } from "matter-js"
-import "./socket.js"
-
+import createConnection from "./socket.js"
 
 const width = 1000
 const height = 600
@@ -39,7 +38,7 @@ let player, opponent
 const setup = () => {
   engine.world.gravity.y = 0
   soundtrack.loop = true
-  soundtrack.play()
+  // soundtrack.play()
 
   World.add(engine.world, [
     Bodies.circle(width / 2, height / 2, 50, {
@@ -116,6 +115,8 @@ const setup = () => {
   document.body.addEventListener("keyup", function(e) {
     keys[e.keyCode] = false
   })
+
+  createConnection(player)
 
   Engine.run(engine)
   Render.run(render)
