@@ -1,15 +1,12 @@
 use crate::{Client, Clients};
 use futures::{FutureExt, StreamExt};
-use serde::Deserialize;
-use serde_json::from_str;
+use serde::{Deserialize};
 use tokio::sync::mpsc;
 use warp::ws::{Message, WebSocket};
-use json;
 
 #[derive(Deserialize, Debug)]
 pub struct Event {
   event_type: String,
-  username: String,
   payload: String,
 }
 
@@ -43,39 +40,25 @@ pub async fn client_connection(ws: WebSocket, id: String, clients: Clients, mut 
   println!("{} disconnected", id);
 }
 
-async fn client_msg(id: &str, msg: Message, _clients: &Clients) {
+async fn client_msg(id: &str, msg: Message, clients: &Clients) {
   println!("received message from {}: {}", id, msg.to_str().unwrap());
+
   let message = match msg.to_str() {
     Ok(v) => v,
     Err(_) => return,
   };
 
-  let payload = json::parse(message).unwrap();
-  println!("{} {}", payload["x"], payload["y"]);
+  let clients = clients
+    .read()
+    .await;
+
+  let client = &clients["sinix"];
 
   if message == "ping" || message == "ping\n" {
     return;
   }
 
-  return;
-
-  let event: Event = match from_str(&message) {
-    Ok(v) => v,
-    Err(e) => {
-      eprintln!("error while parsing message to topics request: {}", e);
-      return;
-    }
-  };
-
-  println!("{:?}", event);
-
-  /*
-  let mut locked = clients.write().await;
-  match locked.get_mut(id) {
-    Some(v) => {
-      v.topics = topics_req.topics;
-    }
-    None => return,
-  };
-  */
+  if let Some(sender) = &client.sender {
+    let _ = sender.send(Ok(Message::text(message)));
+  }
 }

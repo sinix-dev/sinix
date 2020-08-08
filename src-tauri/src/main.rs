@@ -3,11 +3,15 @@
   windows_subsystem = "windows"
 )]
 
+extern crate lazy_static;
+
 use std::collections::HashMap;
 use std::convert::Infallible;
 use std::sync::Arc;
+
 use tokio::sync::{mpsc, RwLock};
 use warp::{ws::Message, Filter, Rejection};
+use serde::{Serialize};
 use env_logger;
 
 mod cmd;
@@ -16,6 +20,11 @@ mod ws;
 
 type Result<T> = std::result::Result<T, Rejection>;
 type Clients = Arc<RwLock<HashMap<String, Client>>>;
+
+#[derive(Serialize)]
+struct Reply {
+  data: String,
+}
 
 #[derive(Debug, Clone)]
 pub struct Client {
@@ -27,8 +36,8 @@ pub struct Client {
 #[tokio::main]
 async fn main() {
   env_logger::init();
-  let clients: Clients = Arc::new(RwLock::new(HashMap::new()));
 
+  let clients: Clients = Arc::new(RwLock::new(HashMap::new()));
   let health_route = warp::path!("health").and_then(handler::health_handler);
 
   let register = warp::path("register");
@@ -57,8 +66,8 @@ async fn main() {
     .and_then(handler::ws_handler);
 
   let routes = health_route
-    .or(register_routes)
     .or(ws_route)
+    .or(register_routes)
     .or(publish)
     .with(warp::cors()
       .allow_any_origin()
@@ -66,27 +75,28 @@ async fn main() {
 
   warp::serve(routes).run(([0, 0, 0, 0], 41431)).await;
 
-  tauri::AppBuilder::new()
-    .invoke_handler(|_webview, arg| {
-      use cmd::Cmd::*;
-      match serde_json::from_str(arg) {
-        Err(e) => {
-          Err(e.to_string())
-        }
-        Ok(command) => {
-          match command {
-            // definitions for your custom commands from Cmd here
-            MyCustomCommand { argument } => {
-              //  your command code
-              println!("{}", argument);
-            }
+  tokio::task::spawn(async {
+    tauri::AppBuilder::new()
+      .invoke_handler(|_webview, arg| {
+        use cmd::Cmd::*;
+
+        match serde_json::from_str(arg) {
+          Err(e) => {
+            Err(e.to_string())
           }
-          Ok(())
+          Ok(command) => {
+            match command {
+              MyCustomCommand { argument } => {
+                println!("{}", argument);
+              }
+            }
+            Ok(())
+          }
         }
-      }
-    })
-    .build()
-    .run();
+      })
+      .build()
+      .run();
+  });
 }
 
 fn with_clients(clients: Clients) -> impl Filter<Extract = (Clients,), Error = Infallible> + Clone {

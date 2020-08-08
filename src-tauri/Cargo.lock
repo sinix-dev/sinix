@@ -1781,6 +1781,7 @@ dependencies = [
  "env_logger",
  "futures",
  "json",
+ "lazy_static",
  "rand 0.6.5",
  "serde",
  "serde_json",
