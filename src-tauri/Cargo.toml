@@ -1,0 +1,33 @@
+[package]
+name = "sinix"
+version = "0.1.0"
+description = "A Sandbox Gaming App"
+authors = [ "Sanket Chaudhari" ]
+license = ""
+repository = ""
+default-run = "sinix"
+edition = "2018"
+build = "src/build.rs"
+
+[dependencies]
+warp = "0.2"
+json = "0.12"
+rand = "0.6.0"
+serde_json = "1.0"
+env_logger = "0.7"
+lazy_static = "1.4"
+serde = { version = "1.0", features = [ "derive" ] }
+tauri = { version = "0.9", features = [ "all-api" ] }
+futures = { version = "0.3", default-features = false }
+tokio = { version = "0.2", features = [ "macros", "sync", "rt-core" ] }
+
+[target."cfg(windows)".build-dependencies]
+winres = "0.1"
+
+[features]
+embedded-server = [ "tauri/embedded-server" ]
+no-server = [ "tauri/no-server" ]
+
+[[bin]]
+name = "sinix"
+path = "src/main.rs"

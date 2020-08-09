@@ -1,23 +1,25 @@
 {
-  "name": "sinix",
+  "name": "svelte-app",
   "version": "1.0.0",
-  "main": "main.js",
-  "author": "Sanket Chaudhari",
-  "license": "MIT",
   "scripts": {
-    "start": "electron .",
-    "lint": "jshint ."
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "electron": "^8.1.1",
-    "express": "^4.17.1",
-    "socket.io": "^2.3.0"
-  },
-  "resolutions": {
-    "minimist": "^1.2.2"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public",
+    "tauri": "tauri"
   },
   "devDependencies": {
-    "jshint": "^2.11.0"
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^5.1.2",
+    "svelte": "^3.0.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "matter-js": "^0.14.2",
+    "sirv-cli": "^1.0.0",
+    "tauri": "^0.11.1"
   }
 }
