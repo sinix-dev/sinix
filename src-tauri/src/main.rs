@@ -75,9 +75,7 @@ async fn main() {
         .allow_methods(vec!["GET", "POST", "DELETE", "OPTION"]),
     );
 
-  warp::serve(routes).run(([0, 0, 0, 0], 41431)).await;
-
-  tokio::task::spawn(async {
+  std::thread::spawn(move || {
     tauri::AppBuilder::new()
       .invoke_handler(|_webview, arg| {
         use cmd::Cmd::*;
@@ -97,6 +95,8 @@ async fn main() {
       .build()
       .run();
   });
+
+  warp::serve(routes).run(([0, 0, 0, 0], 41431)).await;
 }
 
 fn with_clients(clients: Clients) -> impl Filter<Extract = (Clients,), Error = Infallible> + Clone {
