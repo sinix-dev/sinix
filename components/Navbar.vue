@@ -1,6 +1,6 @@
 <template>
   <div class="navbar px-3 items-center">
-    <div class="font-bold tracking-widest">
+    <div class="font-bold text-lg tracking-widest">
       SIN<span style="color: crimson">I</span>X
     </div>
     <div class="flex-1"></div>
