@@ -7,6 +7,7 @@ mod cmd;
 
 fn main() {
   tauri::AppBuilder::new()
+    .setup(sinix::tauri_handler)
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
       match serde_json::from_str(arg) {
