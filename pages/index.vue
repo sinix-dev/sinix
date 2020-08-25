@@ -7,21 +7,22 @@
 </template>
 
 <script>
-import { emit, listen } from "tauri/api/event"
+import { open } from "tauri/api/dialog"
 
 export default {
   data(){
     return {
-      msg: ""
+      msg: "",
+      file: ""
     }
   },
   methods: {
-    send(){
-      console.log("event occured", this.msg)
-      emit("sinix-ping", this.msg)
-      listen("sinix-event", (payload) => {
-        console.log("EVENT", payload)
-      })
+    async send(){
+      const file = await open()
+      console.log(file)
+    },
+    fileChange(){
+      console.log(document.getElementById("myFile").files)
     }
   }
 }
