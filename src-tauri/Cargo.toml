@@ -1,7 +1,7 @@
 [package]
-name = "sinix"
+name = "sinix-desktop"
 version = "0.1.0"
-description = "A Sandbox Gaming App"
+description = "Sinix Desktop"
 authors = [ "Sanket Chaudhari" ]
 license = ""
 repository = ""
@@ -10,16 +10,10 @@ edition = "2018"
 build = "src/build.rs"
 
 [dependencies]
-warp = "0.2"
-json = "0.12"
-rand = "0.6.0"
+sinix = { path = "../../sinix-rs" }
 serde_json = "1.0"
-env_logger = "0.7"
-lazy_static = "1.4"
 serde = { version = "1.0", features = [ "derive" ] }
 tauri = { version = "0.9", features = [ "all-api" ] }
-futures = { version = "0.3", default-features = false }
-tokio = { version = "0.2", features = [ "macros", "sync", "rt-core" ] }
 
 [target."cfg(windows)".build-dependencies]
 winres = "0.1"

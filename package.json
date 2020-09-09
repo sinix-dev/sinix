@@ -1,25 +1,28 @@
 {
-  "name": "svelte-app",
+  "name": "sinix",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public",
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "npm run lint:js",
     "tauri": "tauri"
   },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^12.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.0",
-    "rollup": "^2.3.4",
-    "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-svelte": "^5.0.3",
-    "rollup-plugin-terser": "^5.1.2",
-    "svelte": "^3.0.0"
-  },
   "dependencies": {
-    "axios": "^0.19.2",
-    "matter-js": "^0.14.2",
-    "sirv-cli": "^1.0.0",
+    "@nuxtjs/axios": "^5.12.0",
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "nuxt": "^2.14.0",
     "tauri": "^0.11.1"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^3.1.0",
+    "@nuxtjs/eslint-module": "^2.0.0",
+    "@nuxtjs/tailwindcss": "^2.1.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.5.0",
+    "eslint-plugin-nuxt": "^1.0.0"
   }
 }
