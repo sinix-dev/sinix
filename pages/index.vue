@@ -1,8 +1,10 @@
 <template>
   <div class="p-3">
     <h1>Main</h1>
-    <input type="text" v-model="msg">
-    <button @click="send">Send</button>
+    <input v-model="msg" type="text">
+    <button @click="send">
+      Send
+    </button>
   </div>
 </template>
 
@@ -17,9 +19,14 @@ export default {
     }
   },
   methods: {
-    async send(){
-      const file = await open()
-      console.log(file)
+    send(){
+      open({
+        filter: "*.dext"
+      }).then((file) => {
+        console.log(file)
+      }).catch((err) => {
+        console.log(err)
+      })
     },
     fileChange(){
       console.log(document.getElementById("myFile").files)

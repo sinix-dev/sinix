@@ -3,7 +3,7 @@
     <div class="font-bold text-lg tracking-widest">
       SIN<span style="color: crimson">I</span>X
     </div>
-    <div class="flex-1"></div>
+    <div class="flex-1" />
     <div>
       Settings
     </div>
