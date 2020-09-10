@@ -1117,11 +1117,9 @@ dependencies = [
 [[package]]
 name = "sinix"
 version = "0.1.0"
+source = "git+https://github.com/sinix-dev/sinix-rs#9a21b861ecf3613a7364a93b5bb4ac701cf2629a"
 dependencies = [
  "pickledb",
- "serde",
- "serde_json",
- "tauri",
 ]
 
 [[package]]
