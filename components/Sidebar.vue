@@ -19,7 +19,7 @@ export default {
   methods: {
     browse(){
       open({
-        filter: "*.dext"
+        filter: "*.*"
       }).then((file) => {
         console.log(file)
       }).catch((err) => {
@@ -45,6 +45,6 @@ export default {
 }
 
 .item:hover {
-  background-color: #dc143c14;
+  background: #2D4567;
 }
 </style>

@@ -14,6 +14,7 @@
 
 <style>
 :root {
+  --bg-color-opaque: rgba(21, 36, 56, 1);
   --bg-color: rgba(21, 36, 56, 0.86);
   --bg-color-trans: rgba(21, 36, 56, 0.79);
   --border-color: #223346;
