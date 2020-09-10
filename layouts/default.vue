@@ -14,14 +14,15 @@
 
 <style>
 :root {
-  --text-black: #24292E;
+  --bg-color: rgba(21, 36, 56, 0.86);
+  --bg-color-trans: rgba(21, 36, 56, 0.79);
+  --border-color: #223346;
 }
 
 html, body, #__nuxt, #__layout {
-  color: var(--text-black);
   font-family: 'Roboto', sans-serif;
 
-  @apply w-full h-full tracking-wide;
+  @apply w-full h-full tracking-wide text-gray-100;
 }
 
 @font-face {
@@ -34,14 +35,20 @@ html, body, #__nuxt, #__layout {
 
 .layout {
   grid-template-rows: 50px auto;
+  background: url(../static/images/background.jpg);
 
-  @apply grid h-full;
+  @apply grid h-full bg-fixed bg-center bg-no-repeat bg-cover;
 }
 
 .view {
   grid-template-columns: 250px auto;
 
   @apply grid;
+}
+
+.content {
+  background: var(--bg-color-trans);
+  border: 1px solid var(--border-color);
 }
 
 a, .link {
