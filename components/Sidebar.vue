@@ -14,13 +14,18 @@
 
 <script>
 import { open } from "tauri/api/dialog"
+import { emit, listen } from "tauri/api/event"
 
 export default {
+  mounted(){
+    listen("sinix-install-response", (payload) => {
+      console.log(payload)
+    })
+  },
   methods: {
     browse(){
-      open({
-        filter: "*.*"
-      }).then((file) => {
+      open().then((file) => {
+        emit("sinix-install", file)
         console.log(file)
       }).catch((err) => {
         console.log(err)
