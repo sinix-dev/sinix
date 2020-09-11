@@ -6,10 +6,13 @@
 mod cmd;
 
 fn main() {
+  sinix::init();
+
   tauri::AppBuilder::new()
     .setup(sinix::tauri_handler)
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
+
       match serde_json::from_str(arg) {
         Err(e) => {
           Err(e.to_string())
