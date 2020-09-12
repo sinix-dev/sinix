@@ -1,11 +1,15 @@
 <template>
   <div class="sidebar-wrapper">
-    <div class="item">
-      Explore
-    </div>
-    <div class="item">
-      Installed
-    </div>
+    <nuxt-link to="/explore">
+      <div class="item">
+        Explore
+      </div>
+    </nuxt-link>
+    <nuxt-link to="/installed">
+      <div class="item">
+        Installed
+      </div>
+    </nuxt-link>
     <div class="item" @click="browse">
       Browse
     </div>
