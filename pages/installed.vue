@@ -11,9 +11,14 @@
 import * as fs from "tauri/api/fs"
 
 export default {
-  async fetch(){
+  data(){
+    return {
+      games: []
+    }
+  },
+  created(){
     if (process.client){
-      await fs.readDir("/home/sanket143/.sinix/games")
+      fs.readDir("/home/sanket143/.sinix/games")
         .then((files) => {
           console.log(files)
           this.games = files
@@ -21,11 +26,6 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-    }
-  },
-  data(){
-    return {
-      games: []
     }
   }
 }
