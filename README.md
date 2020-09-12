@@ -1,6 +1,6 @@
 # Sinix
 
-## Build Setup
+### Build Setup
 
 ```bash
 # install dependencies
@@ -17,4 +17,4 @@ $ npm run build && npm run generate
 $ npm run tauri build
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Learn more about the codebase from [Verbose Overview](https://github.com/sinix-dev/sinix/wiki/Verbose-Overview).
