@@ -1,4 +1,4 @@
-# Sinix
+<p align="center"><a href="https://sinix.dev" target="_blank" rel="noopener noreferrer"><img width="300" src="https://sinix.dev/images/logo-light.svg" alt="Sinix logo"></a></p>
 
 ### Build Setup
 
