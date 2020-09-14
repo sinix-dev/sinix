@@ -2,7 +2,7 @@
   <div class="p-3">
     <h1>Installed Games</h1>
     <div v-for="game in games" :key="game.name">
-      <a :href="`http://127.0.0.1:8088/${game.name}/index.html`">{{ game.name }}</a>
+      <a :href="`http://127.0.0.1:41432/${game.name}/index.html`">{{ game.name }}</a>
     </div>
   </div>
 </template>
