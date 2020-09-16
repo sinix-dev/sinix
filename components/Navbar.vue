@@ -1,7 +1,7 @@
 <template>
   <div class="navbar px-3 items-center">
     <div class="font-bold text-lg tracking-widest">
-      SINIX
+      <img class="h-5" src="/images/logo-light.png" />
     </div>
     <div class="flex-1" />
     <div>

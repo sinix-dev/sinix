@@ -14,16 +14,16 @@
 
 <style>
 :root {
-  --bg-color-opaque: rgba(21, 36, 56, 1);
-  --bg-color: rgba(21, 36, 56, 0.86);
-  --bg-color-trans: rgba(21, 36, 56, 0.79);
-  --border-color: #223346;
+  --bg-color-opaque: #FFFFFF;
+  --bg-color: rgb(255, 255, 255);
+  --bg-color-trans: rgba(255, 255, 255, 0.98);
+  --border-color: #FFFFFF;
 }
 
 html, body, #__nuxt, #__layout {
   font-family: 'Roboto', sans-serif;
 
-  @apply w-full h-full tracking-wide text-gray-100;
+  @apply w-full h-full tracking-wide text-gray-900;
 }
 
 @font-face {
@@ -52,13 +52,13 @@ html, body, #__nuxt, #__layout {
   border: 1px solid var(--border-color);
 }
 
-a, .link {
+.link {
   color: crimson;
 
   @apply cursor-pointer;
 }
 
-a:hover, .link:hover {
+.link:hover {
   @apply underline;
 }
 </style>

@@ -54,6 +54,6 @@ export default {
 }
 
 .item:hover {
-  background: #2D4567;
+  background: #F1F1F1;
 }
 </style>
