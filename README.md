@@ -5,6 +5,8 @@ Sinix is a gaming platform primarily for HTML5 games which supports games powere
 [phaser](https://github.com/photonstorm/phaser) and [matter.js](https://github.com/liabru/matter-js) out-of-the-box. Sinix
 also guarantees that every game available on Sinix will playable on every available desktop operating systems.
 
+[Letter to SLoP Contributors](https://github.com/sinix-dev/sinix/wiki/Letter-to-SLoP-Contributors)
+
 [Youtube Link](https://www.youtube.com/playlist?list=PLQtcdujGlO4UDh83DxJhtbrTIN_LmztDR) for FOSS United Hackathon Submission
 
 ### Build Setup
