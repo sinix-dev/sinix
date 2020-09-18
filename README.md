@@ -7,7 +7,7 @@ also guarantees that every game available on Sinix will playable on every availa
 
 [Letter to SLoP Contributors](https://github.com/sinix-dev/sinix/wiki/Letter-to-SLoP-Contributors)
 
-[Basic Overview of Project Sinix](https://www.youtube.com/playlist?list=PLQtcdujGlO4UDh83DxJhtbrTIN_LmztDR) for FOSS United Hackathon Submission
+[Basic Overview of Project Sinix](https://www.youtube.com/playlist?list=PLQtcdujGlO4UDh83DxJhtbrTIN_LmztDR)
 
 ### Build Setup
 
