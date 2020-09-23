@@ -11,6 +11,8 @@ also guarantees that every game available on Sinix will playable on every availa
 
 ### Build Setup
 
+[Follow this steps to setup environment for Tauri Apps](https://tauri.studio/en/docs/getting-started/intro)
+
 ```bash
 # install dependencies
 $ npm install
@@ -32,3 +34,5 @@ Learn more about the codebase from [Verbose Overview](https://github.com/sinix-d
 
 Sinix is licensed under The MIT License (MIT) <br>
 Copyright (c) 2020 Sanket Chaudhari
+
+Join discussion on [Sinix Discord](https://discord.gg/9KFuVmZ)
