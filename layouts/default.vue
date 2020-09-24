@@ -16,8 +16,8 @@
 :root {
   --bg-color-opaque: #FFFFFF;
   --bg-color: rgb(255, 255, 255);
-  --bg-color-trans: rgba(255, 255, 255, 0.98);
-  --border-color: #FFFFFF;
+  --bg-color-trans: rgba(255, 255, 255, 0.99);
+  --border-color: #EDEEEF;
 }
 
 html, body, #__nuxt, #__layout {
@@ -49,7 +49,6 @@ html, body, #__nuxt, #__layout {
 
 .content {
   background: var(--bg-color-trans);
-  border: 1px solid var(--border-color);
 }
 
 .link {

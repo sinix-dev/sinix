@@ -14,7 +14,7 @@
 .navbar {
   height: 50px;
   background: var(--bg-color);
-  border: 1px solid var(--border-color);
+  border-bottom: 0.1px solid var(--border-color);
 
   @apply flex w-full;
 }

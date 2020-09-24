@@ -42,7 +42,7 @@ export default {
 <style scoped>
 .sidebar-wrapper {
   background: var(--bg-color);
-  border: 1px solid var(--border-color);
+  border-right: 0.1px solid var(--border-color);
 
   @apply p-3 h-full;
 }
@@ -54,6 +54,6 @@ export default {
 }
 
 .item:hover {
-  background: #F1F1F1;
+  color: #DC143C;
 }
 </style>
