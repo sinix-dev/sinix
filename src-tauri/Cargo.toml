@@ -10,7 +10,7 @@ edition = "2018"
 build = "src/build.rs"
 
 [dependencies]
-sinix = { git = "https://github.com/sinix-dev/sinix-rs" }
+sinix = { path = "../../sinix-rs" }
 serde_json = "1.0"
 serde = { version = "1.0", features = [ "derive" ] }
 tauri = { version = "0.9", features = [ "all-api" ] }

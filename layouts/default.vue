@@ -23,7 +23,16 @@
 html, body, #__nuxt, #__layout {
   font-family: 'Roboto', sans-serif;
 
-  @apply w-full h-full tracking-wide text-gray-900;
+  @apply w-full h-full text-gray-900;
+}
+
+input {
+  outline: none;
+  border: 1px solid #EEE;
+}
+
+button {
+  outline: none;
 }
 
 @font-face {
