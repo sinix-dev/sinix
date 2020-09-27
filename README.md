@@ -1,4 +1,4 @@
-<p align="center"><a href="https://sinix.dev" target="_blank" rel="noopener noreferrer"><img width="300" src="https://sinix.dev/images/logo-light.svg" alt="Sinix logo"></a></p>
+<p align="center"><a href="https://sinix.dev" target="_blank" rel="noopener noreferrer"><img width="300" src="https://sinix.dev/images/logo-sub-light.png" alt="Sinix logo"></a></p>
 
 ![Discord](https://img.shields.io/discord/756827309226590260) ![GitHub Repo stars](https://img.shields.io/github/stars/sinix-dev/sinix?style=social)
 
