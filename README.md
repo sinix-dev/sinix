@@ -1,5 +1,7 @@
 <p align="center"><a href="https://sinix.dev" target="_blank" rel="noopener noreferrer"><img width="300" src="https://sinix.dev/images/logo-light.svg" alt="Sinix logo"></a></p>
 
+![Discord](https://img.shields.io/discord/756827309226590260) ![GitHub Repo stars](https://img.shields.io/github/stars/sinix-dev/sinix?style=social)
+
 ### Introduction
 Sinix is a gaming platform primarily for HTML5 games which supports games powered by [pixi.js](https://github.com/pixijs/pixi.js),
 [phaser](https://github.com/photonstorm/phaser) and [matter.js](https://github.com/liabru/matter-js) out-of-the-box. Sinix
