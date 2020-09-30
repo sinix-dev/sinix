@@ -41,16 +41,16 @@ export default {
 
 <style scoped>
 .sidebar-wrapper {
-  background: var(--bg-color);
-  border-right: 0.1px solid var(--border-color);
-
-  @apply p-3 h-full;
+  padding: 1rem;
 }
 
 .item {
-  @apply uppercase text-sm;
-  @apply cursor-pointer;
-  @apply w-full px-4 py-1 rounded-full;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.875rem;
+  border-radius: 100%;
+  padding: 0.25rem 1rem;
+  text-transform: uppercase;
 }
 
 .item:hover {

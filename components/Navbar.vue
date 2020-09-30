@@ -1,10 +1,10 @@
 <template>
-  <div class="navbar px-3 items-center">
-    <div class="font-bold text-lg tracking-widest">
-      <img class="h-5" src="/images/logo-light.png" />
-    </div>
-    <div class="flex-1" />
+  <div class="navbar">
     <div>
+      <img class="navbar-logo navbar-item" src="/images/logo-light.png">
+    </div>
+    <div style="flex: 1" />
+    <div class="navbar-item">
       Settings
     </div>
   </div>
@@ -13,9 +13,17 @@
 <style scoped>
 .navbar {
   height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
   background: var(--bg-color);
-  border-bottom: 0.1px solid var(--border-color);
+}
 
-  @apply flex w-full;
+.navbar-item {
+  margin: 0 0.75rem;
+}
+
+.navbar-logo {
+  height: 1rem;
 }
 </style>
