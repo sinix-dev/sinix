@@ -83,8 +83,4 @@ a {
 .link:hover {
   text-decoration: underline;
 }
-
-.flex-1 {
-  flex: 1;
-}
 </style>
