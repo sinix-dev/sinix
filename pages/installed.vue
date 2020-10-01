@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="page-wrapper">
     <h1>Installed Games</h1>
     <div v-for="game in games" :key="game.name">
       <a class="link" :href="`http://127.0.0.1:41432/${game.name}/index.html`">{{ game.name }}</a>
@@ -30,3 +30,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.page-wrapper {
+  padding: 1rem;
+}
+</style>

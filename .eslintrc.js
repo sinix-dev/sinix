@@ -9,7 +9,7 @@ module.exports = {
   },
   extends: [
     '@nuxtjs',
-    'eslint:recommended',
+    'plugin:nuxt/recommended'
   ],
   // add your custom rules here
   rules: {

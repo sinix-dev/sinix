@@ -14,6 +14,7 @@
 
 <style>
 :root {
+  --text-color: #1A202C;
   --bg-color-opaque: #FFFFFF;
   --bg-color: rgb(255, 255, 255);
   --bg-color-trans: rgba(255, 255, 255, 0.99);
@@ -21,9 +22,13 @@
 }
 
 html, body, #__nuxt, #__layout {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--text-color);
+  letter-spacing: 0.025em;
   font-family: 'Roboto', sans-serif;
-
-  @apply w-full h-full tracking-wide text-gray-900;
 }
 
 @font-face {
@@ -34,17 +39,36 @@ html, body, #__nuxt, #__layout {
   src: url(../static/fonts/Roboto-Regular.ttf);
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
 .layout {
+  display: grid;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   grid-template-rows: 50px auto;
   background: url(../static/images/background.jpg);
-
-  @apply grid h-full bg-fixed bg-center bg-no-repeat bg-cover;
 }
 
 .view {
+  display: grid;
+  border-top: 1px solid var(--border-color);
   grid-template-columns: 250px auto;
+}
 
-  @apply grid;
+.sidebar {
+  background: var(--bg-color);
+  border-right: 0.1px solid var(--border-color);
 }
 
 .content {
@@ -53,11 +77,10 @@ html, body, #__nuxt, #__layout {
 
 .link {
   color: crimson;
-
-  @apply cursor-pointer;
+  cursor: pointer;
 }
 
 .link:hover {
-  @apply underline;
+  text-decoration: underline;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
-  <div class="p-3">
+  <div class="page-wrapper">
     <h1>Home</h1>
   </div>
 </template>
 
-<script>
+<style scoped>
+.page-wrapper {
+  padding: 1rem;
+}
 
-</script>
-
-<style>
 button, input {
   border: 1px solid grey;
 }
