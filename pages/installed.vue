@@ -13,7 +13,7 @@ import * as fs from "tauri/api/fs"
 export default {
   data(){
     return {
-      games: []
+      games: ["shalom", "sharon"]
     }
   },
   created(){
