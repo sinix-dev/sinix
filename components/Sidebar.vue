@@ -1,5 +1,10 @@
 <template>
   <div class="sidebar-wrapper">
+    <nuxt-link to="/">
+      <div class="item">
+        Home
+      </div>
+    </nuxt-link>
     <nuxt-link to="/explore">
       <div class="item">
         Explore
