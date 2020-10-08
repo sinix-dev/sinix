@@ -1,28 +1,18 @@
 <template>
-  <div class="navbar">
-    <div>
+  <div class="navbar row">
+    <div class="col-2">
       <img class="navbar-logo navbar-item" src="/images/logo-light.png">
     </div>
-    <div style="flex: 1" />
-    <div class="navbar-item">
+    <div class="col-9">
+      <Searchbar />
+    </div>
+    <div class="col-1 pl-10">
       Settings
     </div>
   </div>
 </template>
 
 <style scoped>
-.navbar {
-  height: 50px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  background: var(--bg-color);
-}
-
-.navbar-item {
-  margin: 0 0.75rem;
-}
-
 .navbar-logo {
   height: 1rem;
 }

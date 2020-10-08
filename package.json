@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
+    "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.5",
     "tauri": "^0.12.0"

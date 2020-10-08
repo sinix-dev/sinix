@@ -1,27 +1,34 @@
 <template>
-  <div class="layout">
+<div class="layout">
+  <div class="container-fluid back shadow">
     <Navbar />
-    <div class="view">
-      <div class="sidebar">
-        <Sidebar />
-      </div>
-      <div class="content">
-        <Nuxt />
-      </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2 sidenav">
+      <Sidebar />
+    </div>
+    <div class="col-sm-8">
+      <Nuxt />
+    </div>
+    <div class="col-2 users p-0">
+      <ConnectedDevices />
     </div>
   </div>
+</div>
 </template>
 
 <style>
-:root {
+@import "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css";
+
+/* :root {
   --text-color: #1A202C;
   --bg-color-opaque: #FFFFFF;
   --bg-color: rgb(255, 255, 255);
   --bg-color-trans: rgba(255, 255, 255, 0.99);
   --border-color: #EDEEEF;
-}
+} */
 
-html, body, #__nuxt, #__layout {
+html, body, #__nuxt, #__layout{
   margin: 0;
   padding: 0;
   width: 100%;
@@ -39,15 +46,27 @@ html, body, #__nuxt, #__layout {
   src: url(../static/fonts/Roboto-Regular.ttf);
 }
 
-h1, h2, h3, h4, h5, h6, p {
-  margin: 0;
-  margin-bottom: 0.25rem;
+.sidenav {
+  background-color: #eeeeee;
 }
 
-a {
+.back {
+  background-color:#686d76;
+}
+
+.users{
+  background-color:#eeeeee;
+}
+
+/* h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  margin-bottom: 0.25rem;
+} */
+
+/* a {
   text-decoration: none;
   color: var(--text-color);
-}
+} */
 
 .layout {
   display: grid;
@@ -57,10 +76,13 @@ a {
   background-attachment: fixed;
   background-repeat: no-repeat;
   grid-template-rows: 50px auto;
-  background: url(../static/images/background.jpg);
 }
 
-.view {
+.row{
+  display: flex;
+}
+
+/* .view {
   display: grid;
   border-top: 1px solid var(--border-color);
   grid-template-columns: 250px auto;
@@ -69,6 +91,11 @@ a {
 .sidebar {
   background: var(--bg-color);
   border-right: 0.1px solid var(--border-color);
+}
+
+.right-sidebar {
+  background: var(--bg-color);
+  border-left: 10px solid var(--border-color);
 }
 
 .content {
@@ -82,5 +109,5 @@ a {
 
 .link:hover {
   text-decoration: underline;
-}
+} */
 </style>
