@@ -1,7 +1,5 @@
 <template>
-  <div class="container-fluid">
-    <h4>Active</h4>
-    <hr>
+  <div class="">
     <li v-for="(item, index) in devices" v-bind:key="index"><Device v-bind:title="item" /></li>
   </div>
 </template>

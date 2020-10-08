@@ -1,19 +1,14 @@
 <template>
-<div class="col-md-4 py-10 m-10">
+<div class="col-4 py-10 m-10">
     <div class="input-group">
-        <input v-model="url" class="form-control" type="search" placeholder="Paste the Game URL" aria-label="Recipient's username" />
-        <div class="input-group-append">
-            <span class="input-group-text"><a :href="`${url}/`" class="searchbar-clear"><i class="fa fa-search"></i></a></span>
-        </div>
+      <input v-model="url" class="form-control" type="search" placeholder="      Search for anything" />
+      <a :href="`${url}/`" class="searchbar-clear"><i class="fa fa-search"></i></a>
     </div>
 </div>
 </template>
 
 <script>
 export default {
-  name: "Index",
-  components: {},
-  // Currently I want to use this url attribute in the src of iframe but the im not sure how to pass the data to it.
   data(){
     return {
       url: ""
@@ -23,5 +18,26 @@ export default {
 </script>
 
 <style scoped>
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+
+.input-group .form-control {
+  background: #213246;
+  border: 1px solid #2D4567;
+  box-sizing: border-box;
+  border-radius: 50px;
+  width: 550px;
+}
+.input-group a {
+  position: absolute;
+  top: 7px;
+  left: 14px;
+}
+
+.fa-search {
+  color: #808080;
+}
+
+.fa-search:hover {
+  color: aqua;
+}
 </style>

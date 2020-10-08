@@ -1,20 +1,18 @@
 <template>
 <div class="layout">
-  <div class="container-fluid back shadow">
-    <Navbar />
-  </div>
-  <div class="row">
-    <div class="col-sm-2 sidenav">
+  <Navbar />
+  <div class="row outer-row">
+    <div class="sidenav">
       <Sidebar />
     </div>
-    <div class="col-sm-8">
+    <div class="col" style="background: rgba(21, 36, 56, 0.59);">
       <Nuxt />
     </div>
-    <div class="col-2 users p-0">
-      <ConnectedDevices />
+    <div class="pl-3 pr-2 user-column">
+          <ConnectedDevices />
     </div>
   </div>
-</div>
+  </div>
 </template>
 
 <style>
@@ -46,12 +44,30 @@ html, body, #__nuxt, #__layout{
   src: url(../static/fonts/Roboto-Regular.ttf);
 }
 
-.sidenav {
-  background-color: #eeeeee;
+.outer-row {
+  position: absolute;
+  top:65px;
+  height: 100%;
+  width: 100%;
 }
 
-.back {
-  background-color:#686d76;
+.user-column {
+  background: rgba(21, 36, 56, 0.95);
+  height: 100%;
+  width: 58px;
+}
+
+/* @media (max-width: 1000px) {
+  .user-column {
+    display: none;
+  }
+} */
+
+.sidenav {
+  width: 246px;
+  background: rgba(21, 36, 56, 0.95);
+  border: 1px solid #223146;
+  box-sizing: border-box;
 }
 
 .users{

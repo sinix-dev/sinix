@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-2 p-0">
-      <div class="row ml-1 mb-1">
-          <span class="dot"><b>{{ title[0] }}</b></span>
-          <p>{{ title }}</p>
+  <div class="m-2">
+      <div class="row">
+          <span class="rounded-circle" alt="100x100"><b>{{ title[0] }}</b></span>
+          <span class="dot-badge"></span>
       </div>
   </div>
 </template>
@@ -16,23 +16,24 @@ export default{
 </script>
 
 <style scoped>
-.dot {
+.rounded-circle {
   height: 35px;
   width: 35px;
-  background-color: #ffac41;
-  border-radius: 50%;
+  background-color: #C4C4C4;
   display: inline-block;
 }
 
-b {
-    position: relative;
-    top: 6px;
-    left: 12px;
+.dot-badge{
+  position:absolute;
+  height: 10px;
+  width: 10px;
+  background-color:greenyellow;
+  border-radius: 50%;
 }
 
-p {
+b {
   position: relative;
-  top:6px;
-  left: 4px;
+  top: 6px;
+  left: 12px;
 }
 </style>>

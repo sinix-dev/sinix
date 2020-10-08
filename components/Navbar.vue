@@ -16,4 +16,10 @@
 .navbar-logo {
   height: 1rem;
 }
+
+.navbar {
+   background:rgba(21, 36, 56, 0.86);
+   height: 65px;
+   width: 100%;
+}
 </style>

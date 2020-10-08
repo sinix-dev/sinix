@@ -1,27 +1,27 @@
 <template>
   <div class="sidebar-wrapper">
-    <button type="button" class="btn btn-block">
+    <button type="button" class="btn">
       <nuxt-link to="/">
         <div class="item">
           Home
         </div>
       </nuxt-link>
     </button>
-    <button type="button" class="btn btn-block">
+    <button type="button" class="btn">
       <nuxt-link to="/explore">
         <div class="item">
           Explore
         </div>
       </nuxt-link>
     </button>
-    <button type="button" class="btn btn-block">
+    <button type="button" class="btn">
       <nuxt-link to="/installed">
         <div class="item">
           Installed
         </div>
       </nuxt-link>
     </button>
-    <button type="button" class="btn btn-block">
+    <button type="button" class="btn">
       <div class="item" @click="browse">
       Browse
       </div>
@@ -54,7 +54,6 @@ export default {
 
 <style scoped>
 .sidebar-wrapper {
-  padding: 1rem;
 }
 
 .item {
@@ -64,18 +63,20 @@ export default {
   border-radius: 100%;
   padding: 0.25rem 1rem;
   text-transform: uppercase;
-  color: white;
+  color: #A1A0A0;
+;
 }
 
 .item:hover {
-  color: yellow;
+  color: aqua;
 }
 
 button {
-  background-color: #212121;
+  background: rgba(21, 36, 56, 0.95);
+  width: 100%;
 }
 
 button:hover{
-  background-color: #0f4c75;
+  background: #223146;
 }
 </style>
