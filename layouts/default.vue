@@ -1,22 +1,32 @@
 <template>
-  <div class="layout">
+<div class = "layout">
+  <div class = "row-1">
     <Navbar />
-    <div class="view">
-      <div class="sidebar">
-        <Sidebar />
+  </div>
+  <div class = "row-2">
+    <div class = "col-1">
+      <Sidebar />
+    </div>
+    <div class = "col-2">
+      <div class = "col-2-row-1">
+        COL-2-ROW-1
       </div>
-      <div class="content">
-        <Nuxt />
+      <div class = "col-2-row-2">
+        COL-2-ROW-2
       </div>
     </div>
+    <div class = "col-3">
+      <ActiveDevices />
+    </div>
   </div>
+</div>
 </template>
 
 <style>
 :root {
   --text-color: #1A202C;
   --bg-color-opaque: #FFFFFF;
-  --bg-color: rgb(255, 255, 255);
+  --bg-color: rgba(21, 36, 56, 0.86);
   --bg-color-trans: rgba(255, 255, 255, 0.99);
   --border-color: #EDEEEF;
 }
@@ -50,37 +60,61 @@ a {
 }
 
 .layout {
+  overflow: hidden;
   display: grid;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  height: 768px;
+  width: 100%;
+  margin: 0;
   grid-template-rows: 50px auto;
-  background: url(../static/images/background.jpg);
+  grid-template-areas:
+    'row-1'
+    'row-2';
 }
 
-.view {
-  display: grid;
-  border-top: 1px solid var(--border-color);
-  grid-template-columns: 250px auto;
+.row-1 {
+  height: 50px;
+  width: 100%;
+  background: rgba(21, 36, 56, 0.86);
+  border: 1px solid #223346;
+  box-sizing: border-box;
+}
+.row-2 {
+  display:grid;
+  grid-template-columns: 246px auto 58px;
+  height: 768px;
+  width: 100%;
+  grid-template-areas:'col-1 col-2 col-3';
 }
 
-.sidebar {
-  background: var(--bg-color);
-  border-right: 0.1px solid var(--border-color);
+.col-1 {
+  height: 100%;
+  width: 246px;
+  background: rgba(21, 36, 56, 0.95);
+  border: 1px solid #223146;
+  box-sizing: border-box;
 }
 
-.content {
-  background: var(--bg-color-trans);
+.col-2 {
+  height: 100%;
+  width: auto;
 }
 
-.link {
-  color: crimson;
-  cursor: pointer;
+.col-2-row-1{
+  height:48px;
+  background: rgba(21, 36, 56, 0.86);
+  border: 1px solid #223346;
+
 }
 
-.link:hover {
-  text-decoration: underline;
+.col-2-row-2 {
+  height: 100%;
+  background: rgba(21, 36, 56, 0.59);
+  border: 1px solid #223346;
+}
+
+.col-3 {
+  width:58px;
+  height: 100%;
+  background: rgba(21, 36, 56, 0.86);
 }
 </style>

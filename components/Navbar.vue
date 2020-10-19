@@ -3,6 +3,9 @@
     <div>
       <img class="navbar-logo navbar-item" src="/images/logo-light.png">
     </div>
+    <div>
+      <Searchbar />
+    </div>
     <div style="flex: 1" />
     <div class="navbar-item">
       Settings
@@ -12,7 +15,7 @@
 
 <style scoped>
 .navbar {
-  height: 50px;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
