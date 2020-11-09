@@ -4,35 +4,10 @@
 )]
 
 mod cmd;
-mod game;
+mod lib;
 
 fn main() {
-  pub fn init() {
-    thread::spawn(move || {
-      runtime::Runtime::new().unwrap().block_on(async {
-        channel::init().await;
-      });
-    });
-  
-    let home_dir = dirs::home_dir().unwrap();
-    let games_dir = Path::new(&home_dir)
-      .join(".sinix/games")
-      .to_str()
-      .unwrap()
-      .to_string();
-    let data_dir = Path::new(&home_dir)
-      .join(".sinix/data")
-      .to_str()
-      .unwrap()
-      .to_string();
-  
-    fs::create_dir_all(&games_dir).unwrap();
-    fs::create_dir_all(&data_dir).unwrap();
-  
-    thread::spawn(move || {
-      game::serve().unwrap();
-    });
-  }
+  lib::init();
   
   tauri::AppBuilder::new()
     .setup(sinix::tauri_handler)
