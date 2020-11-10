@@ -2442,7 +2442,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sinix-desktop"
+name = "sinix"
 version = "0.1.0"
 dependencies = [
  "actix-files",

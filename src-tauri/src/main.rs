@@ -4,10 +4,9 @@
 )]
 
 mod cmd;
-mod lib;
 
 fn main() {
-  lib::init();
+  sinix::init();
   
   tauri::AppBuilder::new()
     .setup(sinix::tauri_handler)
