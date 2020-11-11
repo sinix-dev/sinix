@@ -7,7 +7,7 @@ mod cmd;
 
 fn main() {
   sinix::init();
-  
+
   tauri::AppBuilder::new()
     .setup(sinix::tauri_handler)
     .invoke_handler(|_webview, arg| {
