@@ -1,5 +1,5 @@
 [package]
-name = "sinix-desktop"
+name = "sinix"
 version = "0.1.0"
 description = "Sinix Desktop"
 authors = [ "Sanket Chaudhari" ]
@@ -10,10 +10,19 @@ edition = "2018"
 build = "src/build.rs"
 
 [dependencies]
-serde_json = "1.0"
-sinix = { git = "https://github.com/sinix-dev/sinix-rs" }
-serde = { version = "1.0", features = [ "derive" ] }
+zip = "0.5"
+dirs = "3.0"
+warp = "0.2"
 tauri = { version = "0.9", features = [ "all-api" ] }
+pickledb = "0.4"
+actix-rt = "1.1"
+actix-web = "2.0"
+env_logger = "0.7"
+actix-files = "0.2"
+serde_json = "1.0"
+serde = { version = "1.0", features = [ "derive" ] }
+futures = { version = "0.3", default-features = false }
+tokio = { version = "0.2", features = [ "macros", "sync" ] }
 
 [target."cfg(windows)".build-dependencies]
 winres = "0.1"
