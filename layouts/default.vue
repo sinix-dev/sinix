@@ -8,6 +8,9 @@
       <div class="content">
         <Nuxt />
       </div>
+      <div class="rightbar">
+        <Rightbar />
+      </div>
     </div>
   </div>
 </template>
@@ -63,12 +66,17 @@ a {
 .view {
   display: grid;
   border-top: 1px solid var(--border-color);
-  grid-template-columns: 250px auto;
+  grid-template-columns: 250px auto 58px;
 }
 
 .sidebar {
   background: var(--bg-color);
   border-right: 0.1px solid var(--border-color);
+}
+
+.rightbar {
+  background: var(--bg-color);
+  border-left: 0.1px solid var(--border-color);
 }
 
 .content {
