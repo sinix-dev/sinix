@@ -1,8 +1,9 @@
+pub mod udp_server;
 pub mod channel;
+pub mod models;
 mod db;
 mod event_handlers;
 mod game;
-mod models;
 
 use dirs;
 use std::fs;
