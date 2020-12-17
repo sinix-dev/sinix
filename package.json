@@ -14,7 +14,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.12.4",
     "core-js": "^3.8.1",
-    "nuxt": "^2.14.11",
+    "nuxt": "^2.14.12",
     "tauri": "^0.13.0"
   },
   "devDependencies": {
