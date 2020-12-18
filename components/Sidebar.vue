@@ -2,7 +2,7 @@
   <div class="sidebar-wrapper">
     <nuxt-link to="/">
       <div class="item">
-        Home
+        Library
       </div>
     </nuxt-link>
     <nuxt-link to="/explore">
@@ -10,9 +10,9 @@
         Explore
       </div>
     </nuxt-link>
-    <nuxt-link to="/installed">
+    <nuxt-link to="/collections">
       <div class="item">
-        Installed
+        Collections
       </div>
     </nuxt-link>
     <div class="item" @click="browse">
