@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-wrapper">
-      <h1>Home</h1>
+      <h1>Library</h1>
     </div>
   </div>
 </template>
@@ -19,6 +19,10 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-family: "Roboto";
+}
+
 .page-wrapper {
   padding: 1rem;
 }

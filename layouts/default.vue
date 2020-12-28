@@ -30,8 +30,7 @@ html, body, #__nuxt, #__layout {
   width: 100%;
   height: 100%;
   color: var(--text-color);
-  letter-spacing: 0.025em;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', 'Roboto Medium';
 }
 
 @font-face {
@@ -60,7 +59,6 @@ a {
   background-attachment: fixed;
   background-repeat: no-repeat;
   grid-template-rows: 50px auto;
-  background: url(../static/images/background.jpg);
 }
 
 .view {

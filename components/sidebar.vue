@@ -2,21 +2,21 @@
   <div class="sidebar-wrapper">
     <nuxt-link to="/">
       <div class="item">
-        Library
+        <span>Library</span>
       </div>
     </nuxt-link>
     <nuxt-link to="/explore">
       <div class="item">
-        Explore
+        <span>Explore</span>
       </div>
     </nuxt-link>
     <nuxt-link to="/collections">
       <div class="item">
-        Collections
+        <span>Collections</span>
       </div>
     </nuxt-link>
     <div class="item" @click="browse">
-      Browse
+      <span>Browse</span>
     </div>
   </div>
 </template>
@@ -45,20 +45,19 @@ export default {
 </script>
 
 <style scoped>
-.sidebar-wrapper {
-  padding: 1rem;
-}
-
 .item {
   width: 100%;
+  padding: 1rem;
+  color: #A1A0A0;
   cursor: pointer;
-  font-size: 0.875rem;
-  border-radius: 100%;
-  padding: 0.25rem 1rem;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  padding-left: 1.2rem;
+  font-family: 'Roboto Black';
+  border-bottom: 0.1px solid var(--border-color);
 }
 
 .item:hover {
   color: #DC143C;
+  background: #F5F5F5;
 }
 </style>
