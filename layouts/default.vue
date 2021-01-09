@@ -1,16 +1,13 @@
 <template>
   <div class="layout">
-    <Navbar />
-    <div class="view">
-      <div class="sidebar">
-        <Sidebar />
-      </div>
-      <div class="content">
-        <Nuxt />
-      </div>
-      <div class="rightbar">
-        <Rightbar />
-      </div>
+    <div class="sidebar">
+      <Sidebar />
+    </div>
+    <div class="content">
+      <Nuxt />
+    </div>
+    <div class="rightbar">
+      <Rightbar />
     </div>
   </div>
 </template>
@@ -20,7 +17,7 @@
   --text-color: #1A202C;
   --bg-color-opaque: #FFFFFF;
   --bg-color: rgb(255, 255, 255);
-  --bg-color-trans: rgba(255, 255, 255, 0.99);
+  --bg-color-trans: #FBF9F9;
   --border-color: #EDEEEF;
 }
 
@@ -30,15 +27,25 @@ html, body, #__nuxt, #__layout {
   width: 100%;
   height: 100%;
   color: var(--text-color);
-  font-family: 'Roboto', 'Roboto Medium';
+  font-family: 'Helvetica';
 }
 
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(../static/fonts/Roboto-Regular.ttf);
+  font-family: 'Helvetica';
+  font-weight: normal;
+  src: url(~assets/fonts/Helvetica.ttf);
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  font-weight: bold;
+  src: url(~assets/fonts/Helvetica-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  font-weight: lighter;
+  src: url(~assets/fonts/Helvetica-Light.ttf);
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -52,24 +59,14 @@ a {
 }
 
 .layout {
+  height: 100vh;
   display: grid;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  grid-template-rows: 50px auto;
-}
-
-.view {
-  display: grid;
-  border-top: 1px solid var(--border-color);
-  grid-template-columns: 250px auto 58px;
+  grid-template-columns: 228px auto 58px;
 }
 
 .sidebar {
-  background: var(--bg-color);
-  border-right: 0.1px solid var(--border-color);
+  color: #24292E;
+  background: #FFE7E7;
 }
 
 .rightbar {

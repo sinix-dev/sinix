@@ -1,13 +1,16 @@
 <template>
   <div class="card">
-
   </div>
 </template>
 
 <style>
 .card {
-  animation: 1s appear;
-  margin: auto;
+  animation: 0.5s appear;
+  width: 399px;
+  height: 315px;
+  background: white;
+  border-radius: 5px;
+  filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.25));
 }
 
 @keyframes appear {

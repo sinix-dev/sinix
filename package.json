@@ -12,18 +12,21 @@
     "lint": "npm run lint:js"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.4",
-    "core-js": "^3.8.1",
+    "@nuxtjs/axios": "^5.12.5",
+    "core-js": "^3.8.2",
+    "feather-icons": "^4.28.0",
     "nuxt": "^2.14.12",
-    "tauri": "^0.13.0"
+    "tauri": "^0.13.0",
+    "vue": "^2.6.12",
+    "vue-feather": "^1.1.1"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^2.0.2",
     "@nuxtjs/eslint-config": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.16.0",
+    "eslint": "^7.17.0",
     "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-vue": "^7.3.0"
+    "eslint-plugin-vue": "^7.4.1"
   }
 }

@@ -2,22 +2,36 @@
   <div class="sidebar-wrapper">
     <nuxt-link to="/">
       <div class="item">
+        <client-only>
+          <feather class="icon" type="heart" />
+        </client-only>
         <span>Library</span>
       </div>
     </nuxt-link>
     <nuxt-link to="/explore">
       <div class="item">
+        <client-only>
+          <feather class="icon" type="compass" />
+        </client-only>
         <span>Explore</span>
       </div>
     </nuxt-link>
     <nuxt-link to="/collections">
       <div class="item">
+        <client-only>
+          <feather class="icon" type="layers" />
+        </client-only>
         <span>Collections</span>
       </div>
     </nuxt-link>
-    <div class="item" @click="browse">
-      <span>Browse</span>
-    </div>
+    <nuxt-link to="/collections">
+      <div class="item">
+        <client-only>
+          <feather class="icon" type="settings" />
+        </client-only>
+        <span>Settings</span>
+      </div>
+    </nuxt-link>
   </div>
 </template>
 
@@ -43,21 +57,31 @@ export default {
   }
 }
 </script>
+<style>
+.icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 5px;
+  color: #DC143C;
+}
+</style>
 
 <style scoped>
+.sidebar-wrapper {
+  padding: 10px;
+  min-height: calc(100% - 40px);
+}
+
 .item {
-  width: 100%;
-  padding: 1rem;
-  color: #A1A0A0;
+  display: flex;
   cursor: pointer;
-  font-size: 0.9rem;
-  padding-left: 1.2rem;
-  font-family: 'Roboto Black';
-  border-bottom: 0.1px solid var(--border-color);
+  font-size: 14px;
+  padding: 8px 8px;
+  border-radius: 5px;
+  align-items: center;
 }
 
 .item:hover {
-  color: #DC143C;
-  background: #F5F5F5;
+  background: #FDD9D9;
 }
 </style>
