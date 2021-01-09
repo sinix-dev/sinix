@@ -1,6 +1,5 @@
 <template>
-  <div class="card">
-  </div>
+  <div class="card" />
 </template>
 
 <style>

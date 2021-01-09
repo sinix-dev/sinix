@@ -17,7 +17,7 @@ export default {
     return {
       version
     }
-  },
+  }
 }
 </script>
 
