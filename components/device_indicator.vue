@@ -24,24 +24,24 @@ export default {
 }
 
 .indicator {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   color: #4A4A4A;
-  font-size: 22px;
+  font-size: 15px;
   font-weight: bold;
   border-radius: 50%;
-  background: #C4C4C4;
+  background: #FFD5D5;
   align-items: center;
   justify-content: center;
 }
 
 .status {
-  right: 8px;
-  width: 12px;
-  height: 12px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
   display: block;
-  margin-top: -12px;
+  margin-top: -10px;
   position: absolute;
   border-radius: 50%;
   background: #2EA62C;
