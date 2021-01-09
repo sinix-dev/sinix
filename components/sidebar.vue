@@ -24,7 +24,7 @@
         <span>Collections</span>
       </div>
     </nuxt-link>
-    <nuxt-link to="/collections">
+    <nuxt-link to="/settings">
       <div class="item">
         <client-only>
           <feather class="icon" type="settings" />
