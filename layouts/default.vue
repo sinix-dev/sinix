@@ -21,6 +21,15 @@
   --border-color: #EDEEEF;
 }
 
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 html, body, #__nuxt, #__layout {
   margin: 0;
   padding: 0;
