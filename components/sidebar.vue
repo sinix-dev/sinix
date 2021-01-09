@@ -57,6 +57,7 @@ export default {
   }
 }
 </script>
+
 <style>
 .icon {
   width: 17px;
@@ -68,15 +69,17 @@ export default {
 
 <style scoped>
 .sidebar-wrapper {
+  display: flex;
   padding: 10px;
-  min-height: calc(100% - 40px);
+  flex-direction: column;
+  height: calc(100% - 20px);
 }
 
 .item {
+  padding: 8px;
   display: flex;
   cursor: pointer;
   font-size: 14px;
-  padding: 8px 8px;
   border-radius: 5px;
   align-items: center;
 }
