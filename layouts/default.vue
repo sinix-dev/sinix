@@ -61,7 +61,7 @@ a {
 .layout {
   height: 100vh;
   display: grid;
-  grid-template-columns: 228px auto 58px;
+  grid-template-columns: 228px auto 45px;
 }
 
 .sidebar {
@@ -71,7 +71,6 @@ a {
 
 .rightbar {
   background: var(--bg-color);
-  border-left: 0.1px solid var(--border-color);
 }
 
 .content {
