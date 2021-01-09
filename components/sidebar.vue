@@ -63,7 +63,7 @@ export default {
   width: 17px;
   height: 17px;
   margin-right: 5px;
-  color: #DC143C;
+  color: var(--color-primary);
 }
 </style>
 
@@ -85,6 +85,6 @@ export default {
 }
 
 .item:hover {
-  background: #FDD9D9;
+  background: var(--color-highlight);
 }
 </style>

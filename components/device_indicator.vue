@@ -3,7 +3,6 @@
     <div class="indicator">
       {{ username[0].toUpperCase() }}
     </div>
-    <span class="status" />
   </div>
 </template>
 
@@ -27,23 +26,13 @@ export default {
   width: 30px;
   height: 30px;
   display: flex;
-  color: #4A4A4A;
   font-size: 15px;
   font-weight: bold;
   border-radius: 50%;
-  background: #FFD5D5;
   align-items: center;
+  color: var(--color);
+  background: var(--bg);
   justify-content: center;
-}
-
-.status {
-  right: 6px;
-  width: 8px;
-  height: 8px;
-  display: block;
-  margin-top: -10px;
-  position: absolute;
-  border-radius: 50%;
-  background: #2EA62C;
+  border: 1px solid var(--color-primary);
 }
 </style>
