@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <h3>Installed Games</h3>
+    <h3>Collection</h3>
     <div v-for="game in games" :key="game.name">
       <a class="link" :href="`http://127.0.0.1:41432/${game.name}/index.html`">{{ game.name }}</a>
     </div>
