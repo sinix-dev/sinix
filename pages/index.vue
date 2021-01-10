@@ -1,20 +1,12 @@
 <template>
-  <div>
-    <div class="page-wrapper">
-      <h1>Home</h1>
-    </div>
+  <div class="page-wrapper">
+    <h3>Library</h3>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Index",
-  components: {},
-  data(){
-    return {
-      url: ""
-    }
-  }
+  name: "Index"
 }
 </script>
 
