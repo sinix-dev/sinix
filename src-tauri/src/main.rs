@@ -3,13 +3,17 @@
   windows_subsystem = "windows"
 )]
 
+use sinix::udp_server;
+
 mod cmd;
 
 fn main() {
   sinix::init();
+  let udpSocketServer = udp_server::UdpSocketServer::new();
 
   tauri::AppBuilder::new()
     .setup(sinix::tauri_handler)
+    .plugin(udpSocketServer)
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
 
