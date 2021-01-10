@@ -15,7 +15,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "core-js": "^3.8.2",
     "nuxt": "^2.14.12",
-    "tauri": "^0.13.0"
+    "tauri": "^0.14.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",
