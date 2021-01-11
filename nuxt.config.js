@@ -27,6 +27,10 @@ export default {
     {
       src: "~/plugins/feather-icons",
       mode: "client"
+    },
+    {
+      src: "~/plugins/themes-toggle",
+      mode: "client"
     }
   ],
 
