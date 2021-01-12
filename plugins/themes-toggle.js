@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 document.addEventListener("keydown", (e) => {
   const theme = $nuxt.$colorMode.preference
   if(e.ctrlKey && e.keyCode === 84){
