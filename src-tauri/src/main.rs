@@ -4,16 +4,19 @@
 )]
 
 use sinix::udp_server;
+use sinix::game_webview;
 
 mod cmd;
 
 fn main() {
   sinix::init();
   let udpSocketServer = udp_server::UdpSocketServer::new();
+  let gameWebview = game_webview::GameWebview::new();
 
   tauri::AppBuilder::new()
     .setup(sinix::tauri_handler)
     .plugin(udpSocketServer)
+    .plugin(gameWebview)
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
 

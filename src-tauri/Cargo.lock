@@ -2402,6 +2402,7 @@ dependencies = [
  "tauri",
  "tokio",
  "warp",
+ "webview_official",
  "winres",
  "zip",
 ]

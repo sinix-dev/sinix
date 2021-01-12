@@ -1,4 +1,5 @@
 pub mod udp_server;
+pub mod game_webview;
 pub mod channel;
 pub mod models;
 mod db;
