@@ -1,37 +1,21 @@
-#![warn(unused_extern_crates)]
 #![cfg_attr(
   all(not(debug_assertions), target_os = "windows"),
   windows_subsystem = "windows"
 )]
 
-use sinix::udp_server;
+use sinix::joystick;
+use sinix::root;
 
 mod cmd;
 
 fn main() {
-  sinix::init();
-  let udp_socket_server = udp_server::UdpSocketServer::new();
+  let udp_socket_server = joystick::UdpSocketServer::new();
+  let sinix_root = root::SinixRoot::new();
 
+  println!("main: {:?}", std::thread::current().id());
   tauri::AppBuilder::new()
-    .setup(sinix::tauri_handler)
     .plugin(udp_socket_server)
-    .invoke_handler(|_webview, arg| {
-      use cmd::Cmd::*;
-
-      match serde_json::from_str(arg) {
-        Err(e) => Err(e.to_string()),
-        Ok(command) => {
-          match command {
-            // definitions for your custom commands from Cmd here
-            MyCustomCommand { argument } => {
-              //  your command code
-              println!("{}", argument);
-            }
-          }
-          Ok(())
-        }
-      }
-    })
+    .plugin(sinix_root)
     .build()
     .run();
 }

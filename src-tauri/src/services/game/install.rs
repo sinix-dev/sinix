@@ -1,38 +1,42 @@
-use crate::models::Reply;
-use dirs;
-use serde_json;
 use std::fs;
 use std::io;
 use std::path::Path;
+
+use serde_json;
 use zip;
 
-const GAMES_DIR: &str = ".sinix/games";
-const TEMP_DIR: &str = ".sinix/games/.tmp_game";
+use super::config as game_config;
+use crate::models::Reply;
 
+/// Rename the temp installation directory to the actualy game directory
+///
+/// In the process of installtion, the game get extracted in a temp directory
+/// so that it is never the case where the game is partially installed
 fn rename() {
-  let home_dir = dirs::home_dir().unwrap();
+  let home_dir = tauri::api::path::home_dir().unwrap();
   let tmp_dir = Path::new(&home_dir)
-    .join(TEMP_DIR)
+    .join(game_config::TEMP_DIR)
     .to_str()
     .unwrap()
     .to_string();
 
   let manifest_path = Path::new(&home_dir)
-    .join(TEMP_DIR)
-    .join("sinix.manifest.json")
+    .join(game_config::TEMP_DIR)
+    .join(game_config::SINIX_CONFIG_FILENAME)
     .to_str()
     .unwrap()
     .to_string();
 
   println!("{}", manifest_path);
 
-  let manifest = fs::read_to_string(manifest_path).expect("Unable to read file");
+  let manifest = fs::read_to_string(manifest_path)
+    .expect("Unable to read file");
 
   let manifest: serde_json::Value =
     serde_json::from_str(&manifest).expect("JSON was not well-formatted");
 
   let game_dir = Path::new(&home_dir)
-    .join(GAMES_DIR)
+    .join(game_config::GAMES_DIR)
     .join(manifest["slug"].as_str().unwrap())
     .to_str()
     .unwrap()
@@ -44,13 +48,17 @@ fn rename() {
   });
 }
 
+/// Extract and Copy the content to a temperory directory
+///
+/// The affected temp directory later gets renamed to be the legit game
+/// assets directory
 fn extract_and_copy(file_name: String) {
   let file = fs::File::open(&file_name).unwrap();
   let mut archive = zip::ZipArchive::new(file).unwrap();
 
-  let home_dir = dirs::home_dir().unwrap();
+  let home_dir = tauri::api::path::home_dir().unwrap();
   let temp_dir = Path::new(&home_dir)
-    .join(TEMP_DIR)
+    .join(game_config::TEMP_DIR)
     .to_str()
     .unwrap()
     .to_string();
@@ -108,11 +116,12 @@ fn extract_and_copy(file_name: String) {
   rename();
 }
 
-pub fn sinix_install(mut webview: tauri::WebviewMut, msg: Option<String>) {
-  // Install a new app
+/// Install Sinix App
+pub fn install(mut webview: tauri::WebviewMut, msg: Option<String>) {
   let file_name = msg.unwrap();
   extract_and_copy(file_name);
 
+  // TODO: Write some relevant message
   let reply = Reply {
     data: "something else".to_string(),
   };

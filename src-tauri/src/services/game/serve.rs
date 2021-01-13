@@ -1,26 +1,29 @@
-use actix_files as fs;
-use actix_web::{App, HttpServer};
 use std::path::Path;
 
-const GAMES_DIR: &str = ".sinix/games";
+use actix_files as fs;
+use actix_web::{App, HttpServer};
 
+use super::config as game_config;
+use crate::config;
+
+/// Static server to serve games directory
 #[actix_rt::main]
 pub async fn serve() -> std::io::Result<()> {
   println!("Serving games...");
 
   HttpServer::new(|| {
-    let home_dir = dirs::home_dir().unwrap();
+    let home_dir = tauri::api::path::home_dir().unwrap();
     let games_dir = Path::new(&home_dir)
-      .join(GAMES_DIR)
+      .join(game_config::GAMES_DIR)
       .to_str()
       .unwrap()
       .to_string();
 
-    println!("{}", games_dir);
+    println!("voila: {:?}", std::thread::current().id());
 
     App::new().service(fs::Files::new("/", &games_dir))
   })
-  .bind("127.0.0.1:41432")?
+  .bind(format!("127.0.0.1:{}", config::GAME_SERVER_PORT))?
   .run()
   .await
 }
