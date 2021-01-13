@@ -1,3 +1,4 @@
+#![warn(unused_extern_crates)]
 #![cfg_attr(
   all(not(debug_assertions), target_os = "windows"),
   windows_subsystem = "windows"
@@ -9,11 +10,11 @@ mod cmd;
 
 fn main() {
   sinix::init();
-  let udpSocketServer = udp_server::UdpSocketServer::new();
+  let udp_socket_server = udp_server::UdpSocketServer::new();
 
   tauri::AppBuilder::new()
     .setup(sinix::tauri_handler)
-    .plugin(udpSocketServer)
+    .plugin(udp_socket_server)
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
 
