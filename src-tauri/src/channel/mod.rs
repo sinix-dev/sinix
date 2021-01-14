@@ -1,9 +1,13 @@
 use env_logger;
+use crate::config;
+
 use std::collections::HashMap;
 use std::convert::Infallible;
 use std::sync::Arc;
+use std::thread;
+
 use tokio::sync::{mpsc, RwLock};
-use warp;
+use tokio::runtime;
 use warp::{ws::Message, Filter, Rejection};
 
 mod handler;
@@ -18,7 +22,16 @@ pub struct Client {
   pub sender: Option<mpsc::UnboundedSender<std::result::Result<Message, warp::Error>>>,
 }
 
-pub async fn init() {
+pub fn init() {
+  thread::spawn(move || {
+    println!("websocket: {:?}", std::thread::current().id());
+    runtime::Runtime::new().unwrap().block_on(async {
+      serve().await;
+    });
+  });
+}
+
+pub async fn serve() {
   env_logger::init();
   let clients: Clients = Arc::new(RwLock::new(HashMap::new()));
   let health_route = warp::path!("health").and_then(handler::health_handler);
@@ -58,7 +71,9 @@ pub async fn init() {
         .allow_methods(vec!["GET", "POST", "DELETE", "OPTION"]),
     );
 
-  warp::serve(routes).run(([0, 0, 0, 0], 41431)).await;
+  warp::serve(routes)
+    .run(([0, 0, 0, 0], config::WS_SERVER_PORT))
+    .await;
 }
 
 fn with_clients(clients: Clients) -> impl Filter<Extract = (Clients,), Error = Infallible> + Clone {
