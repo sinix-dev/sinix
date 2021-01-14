@@ -2,6 +2,7 @@ use std::str;
 use std::net::UdpSocket;
 use std::sync::mpsc::Sender;
 use crate::config;
+use crate::models::Reply;
 
 /// Initiate UDP Server on PORT number `config::UDP_SERVER_PORT`
 pub fn serve(tx: Sender<String>){
@@ -17,7 +18,7 @@ pub fn serve(tx: Sender<String>){
     match socket.recv_from(&mut buf) {
       Ok((amt, _src)) => {
         let reply = str::from_utf8(&buf[..amt]).unwrap_or("");
-        let reply = crate::models::Reply {
+        let reply = Reply {
           data: String::from(reply)
         };
 

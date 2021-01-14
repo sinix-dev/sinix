@@ -10,6 +10,7 @@ use tauri::{plugin::Plugin, Webview};
 /// Receives payload in following format
 /// ```json
 /// {
+///   "username": "sanket143",
 ///   "type": "STICK1" /* this could be STICK2 or BUTTON */
 ///   "payload": {
 ///     "STICK1": {
