@@ -5,7 +5,7 @@
 ### Introduction
 Sinix is a gaming platform primarily for HTML5 games which supports games powered by [pixi.js](https://github.com/pixijs/pixi.js),
 [phaser](https://github.com/photonstorm/phaser) and [matter.js](https://github.com/liabru/matter-js) out-of-the-box. Sinix
-also guarantees that every game available on Sinix will playable on every available desktop operating systems.
+also guarantees that every game available on Sinix will be playable on every available desktop operating systems.
 
 [Letter to SLoP Contributors](https://github.com/sinix-dev/sinix/wiki/Letter-to-SLoP-Contributors)
 
