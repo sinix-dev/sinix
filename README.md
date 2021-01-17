@@ -7,13 +7,11 @@ Sinix is a gaming platform primarily for HTML5 games which supports games powere
 [phaser](https://github.com/photonstorm/phaser) and [matter.js](https://github.com/liabru/matter-js) out-of-the-box. Sinix
 also guarantees that every game available on Sinix will be playable on every available desktop operating systems.
 
-[Letter to SLoP Contributors](https://github.com/sinix-dev/sinix/wiki/Letter-to-SLoP-Contributors)
-
 [Basic Overview of Project Sinix](https://www.youtube.com/playlist?list=PLQtcdujGlO4UDh83DxJhtbrTIN_LmztDR)
 
 ### Build Setup
 
-[Follow this steps to setup environment for Tauri Apps](https://tauri.studio/en/docs/getting-started/intro)
+[Follow these steps to setup environment for Tauri Apps](https://tauri.studio/en/docs/getting-started/intro)
 
 ```bash
 # install dependencies
