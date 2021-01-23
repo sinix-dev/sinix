@@ -12,15 +12,17 @@ build = "src/build.rs"
 [dependencies]
 zip = "0.5"
 warp = "0.2"
-tauri = { version = "0.9", features = [ "all-api" ] }
 actix-rt = "1.1"
 actix-web = "2.0"
+serde_json = "1.0"
 env_logger = "0.7"
 actix-files = "0.2"
-serde_json = "1.0"
+webview_official = "0.0"
 serde = { version = "1.0", features = [ "derive" ] }
+tauri = { version = "0.11", features = [ "all-api" ] }
 futures = { version = "0.3", default-features = false }
 tokio = { version = "0.2", features = [ "macros", "sync" ] }
+reqwest = { version = "0.11", features = [ "blocking", "json" ] }
 
 [target."cfg(windows)".build-dependencies]
 winres = "0.1"

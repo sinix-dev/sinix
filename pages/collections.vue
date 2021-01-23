@@ -2,13 +2,14 @@
   <div class="page-wrapper">
     <h3>Collection</h3>
     <div v-for="game in games" :key="game.name">
-      <a class="link" :href="`http://127.0.0.1:41432/${game.name}/index.html`">{{ game.name }}</a>
+      <span class="link" @click="open(game.name)">{{ game.name }}</span>
     </div>
   </div>
 </template>
 
 <script>
 import * as fs from "tauri/api/fs"
+import { emit } from "tauri/api/event"
 
 export default {
   data(){
@@ -25,6 +26,11 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    }
+  },
+  methods: {
+    open(game_id){
+      emit("game-webview", game_id)
     }
   }
 }
