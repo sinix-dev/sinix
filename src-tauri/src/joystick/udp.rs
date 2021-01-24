@@ -2,7 +2,12 @@ use std::str;
 use std::net::UdpSocket;
 use std::sync::mpsc::Sender;
 use crate::config;
-use crate::models::Reply;
+use serde::Serialize;
+
+#[derive(Serialize)]
+pub struct Reply {
+  pub data: String,
+}
 
 /// Initiate UDP Server on PORT number `config::UDP_SERVER_PORT`
 pub fn serve(tx: Sender<String>){

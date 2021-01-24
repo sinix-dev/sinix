@@ -6,7 +6,12 @@ use serde_json;
 use zip;
 
 use super::config as game_config;
-use crate::models::Reply;
+use serde::Serialize;
+
+#[derive(Serialize)]
+pub struct Reply {
+  pub data: String,
+}
 
 /// Rename the temp installation directory to the actualy game directory
 ///
