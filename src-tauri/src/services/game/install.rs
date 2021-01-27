@@ -2,11 +2,16 @@ use std::fs;
 use std::io;
 use std::path::Path;
 
-use serde_json;
 use zip;
+use serde_json;
+use serde::Serialize;
 
 use super::config as game_config;
-use crate::models::Reply;
+
+#[derive(Serialize)]
+pub struct Reply {
+  pub data: String,
+}
 
 /// Rename the temp installation directory to the actualy game directory
 ///
