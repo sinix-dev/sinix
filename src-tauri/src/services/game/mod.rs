@@ -6,7 +6,6 @@ pub use install::install;
 pub use serve::serve;
 
 use std::fs;
-use std::thread;
 use std::path::Path;
 
 /// Initialize Gaming Environment
@@ -26,7 +25,7 @@ pub fn init(){
   fs::create_dir_all(&games_dir).unwrap();
   fs::create_dir_all(&data_dir).unwrap();
 
-  thread::spawn(move || {
+  tauri::spawn(move || {
     println!("game: {:?}", std::thread::current().id());
     serve().unwrap();
   });

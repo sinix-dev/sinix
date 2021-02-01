@@ -29,7 +29,7 @@ impl GameWebview {
 }
 
 impl Plugin for GameWebview {
-  fn created(&self, webview: &mut Webview) {
+  fn created(&self, _webview: &mut Webview) {
     tauri::event::listen(String::from("game-webview"), move |msg| {
       let game_id = msg.unwrap();
       let game_url = format!("http://127.0.0.1:41432/{}", game_id);

@@ -4,7 +4,6 @@ use crate::config;
 use std::collections::HashMap;
 use std::convert::Infallible;
 use std::sync::Arc;
-use std::thread;
 
 use tokio::sync::{mpsc, RwLock};
 use tokio::runtime;
@@ -23,7 +22,7 @@ pub struct Client {
 }
 
 pub fn init() {
-  thread::spawn(move || {
+  tauri::spawn(move || {
     println!("websocket: {:?}", std::thread::current().id());
     runtime::Runtime::new().unwrap().block_on(async {
       serve().await;

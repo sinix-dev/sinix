@@ -2521,7 +2521,7 @@ dependencies = [
 
 [[package]]
 name = "sinix"
-version = "0.1.0"
+version = "0.1.0-alpha.0"
 dependencies = [
  "actix-files",
  "actix-rt",
@@ -2534,7 +2534,7 @@ dependencies = [
  "tauri",
  "tokio 0.2.24",
  "warp",
- "webview_official 0.0.4",
+ "webview_official",
  "winres",
  "zip",
 ]
@@ -2679,7 +2679,7 @@ dependencies = [
  "urlencoding",
  "uuid",
  "webbrowser",
- "webview_official 0.0.3",
+ "webview_official",
 ]
 
 [[package]]
@@ -3410,15 +3410,6 @@ name = "webview_official"
 version = "0.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b36082f42b8d1e5882d021c98d82c8eeed21fa8ac985f9a96c5e9b7f0a3691a7"
-dependencies = [
- "webview-official-sys",
-]
-
-[[package]]
-name = "webview_official"
-version = "0.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae12c9051f4ee17195d19d170b82ad1bf5477c272fe03f73e21626475cb60b03"
 dependencies = [
  "webview-official-sys",
 ]

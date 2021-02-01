@@ -1,5 +1,4 @@
 use std::str;
-use std::thread;
 use std::net::UdpSocket;
 use std::sync::mpsc::channel;
 use std::sync::mpsc::Receiver;
@@ -45,12 +44,12 @@ impl Plugin for UdpSocketServer {
   fn created(&self, _webview: &mut Webview) {
     let (tx, rx) = channel();
 
-    thread::spawn(move || {
+    tauri::spawn(move || {
       println!("udp_serve: {:?}", std::thread::current().id());
       serve(tx);
     });
 
-    thread::spawn(move || {
+    tauri::spawn(move || {
       println!("udp_handle: {:?}", std::thread::current().id());
       handle(rx);
     });
