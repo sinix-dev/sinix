@@ -1,7 +1,5 @@
-pub mod channel;
-pub mod config;
-pub mod services;
-pub mod root;
+pub mod constants;
 pub mod plugins;
-
-pub use services::game;
+pub mod routes;
+pub mod server;
+pub mod services;

@@ -3,13 +3,18 @@
   windows_subsystem = "windows"
 )]
 
-use sinix::root;
-use sinix::plugins;
-
 mod cmd;
 
-fn main() {
-  let sinix_root = root::SinixRoot::new();
+use sinix::plugins;
+
+#[tokio::main]
+async fn main() {
+  env_logger::init();
+  tokio::spawn(async {
+    sinix::server::serve().await;
+  });
+
+  let sinix_root = plugins::SinixRoot::new();
   let game_webview = plugins::GameWebview::new();
   let udp_socket_server = plugins::UdpSocketServer::new();
 
