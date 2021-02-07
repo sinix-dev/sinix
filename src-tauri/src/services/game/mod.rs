@@ -1,5 +1,5 @@
-mod install;
 mod config;
+mod install;
 mod serve;
 
 pub use install::install;
@@ -9,7 +9,7 @@ use std::fs;
 use std::path::Path;
 
 /// Initialize Gaming Environment
-pub fn init(){
+pub fn init() {
   let home_dir = tauri::api::path::home_dir().unwrap();
   let games_dir = Path::new(&home_dir)
     .join(".sinix/games")

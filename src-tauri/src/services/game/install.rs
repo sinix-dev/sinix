@@ -2,9 +2,9 @@ use std::fs;
 use std::io;
 use std::path::Path;
 
-use zip;
-use serde_json;
 use serde::Serialize;
+use serde_json;
+use zip;
 
 use super::config as game_config;
 
@@ -34,8 +34,7 @@ fn rename() {
 
   println!("{}", manifest_path);
 
-  let manifest = fs::read_to_string(manifest_path)
-    .expect("Unable to read file");
+  let manifest = fs::read_to_string(manifest_path).expect("Unable to read file");
 
   let manifest: serde_json::Value =
     serde_json::from_str(&manifest).expect("JSON was not well-formatted");
