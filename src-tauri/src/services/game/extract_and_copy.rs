@@ -2,8 +2,6 @@ use std::fs;
 use std::io;
 use std::path::Path;
 
-use zip;
-
 use crate::constants as sinix_constants;
 
 /// Extract and Copy the content to a temperory directory
@@ -34,7 +32,7 @@ pub fn extract_and_copy(file_name: String) {
       }
     }
 
-    if (&*file.name()).ends_with("/") {
+    if (&*file.name()).ends_with('/') {
       println!(
         "File {} extracted to \"{}\"",
         i,

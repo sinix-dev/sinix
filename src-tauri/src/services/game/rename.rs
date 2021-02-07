@@ -1,6 +1,5 @@
 use std::fs;
 use std::path::Path;
-use serde_json;
 
 use crate::constants as sinix_constants;
 

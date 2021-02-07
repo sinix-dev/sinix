@@ -22,6 +22,7 @@ mod models {
   }
 }
 
+#[derive(Default)]
 pub struct GameWebview; 
 
 impl GameWebview {

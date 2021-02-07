@@ -2,6 +2,7 @@ use tauri::{plugin::Plugin, Webview};
 
 use crate::services::game;
 
+#[derive(Default)]
 pub struct SinixRoot;
 
 impl SinixRoot {

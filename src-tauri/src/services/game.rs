@@ -3,7 +3,6 @@ mod rename;
 
 use std::fs;
 use std::path::Path;
-use serde_json;
 use serde::Serialize;
 
 use rename::rename;

@@ -32,6 +32,7 @@ pub struct Reply {
 /// ```
 ///
 /// and notifies the game running on Sinix through events
+#[derive(Default)]
 pub struct UdpSocketServer; 
 
 impl UdpSocketServer {

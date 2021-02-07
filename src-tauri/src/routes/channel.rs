@@ -42,7 +42,7 @@ pub fn route() -> impl Filter<Extract = (impl Reply,), Error = warp::Rejection> 
   let ws_route = warp::path("ws")
     .and(warp::ws())
     .and(warp::path::param())
-    .and(with_clients(clients.clone()))
+    .and(with_clients(clients))
     .and_then(handler::ws_handler);
 
   warp::path!("channel")
