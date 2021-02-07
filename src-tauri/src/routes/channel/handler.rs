@@ -75,7 +75,3 @@ pub async fn ws_handler(
     None => Err(warp::reject::not_found()),
   }
 }
-
-pub async fn health_handler() -> Result<impl Reply> {
-  Ok(StatusCode::OK)
-}

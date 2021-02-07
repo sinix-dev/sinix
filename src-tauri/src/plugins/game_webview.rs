@@ -1,6 +1,8 @@
 use tauri::{plugin::Plugin, Webview};
 use webview_official::{SizeHint, WebviewBuilder};
 
+use crate::constants as sinix_constants;
+
 mod models {
   use serde::Deserialize;
 
@@ -20,6 +22,7 @@ mod models {
   }
 }
 
+#[derive(Default)]
 pub struct GameWebview;
 
 impl GameWebview {
@@ -32,7 +35,11 @@ impl Plugin for GameWebview {
   fn created(&self, _webview: &mut Webview) {
     tauri::event::listen(String::from("game-webview"), move |msg| {
       let game_id = msg.unwrap();
-      let game_url = format!("http://127.0.0.1:41432/{}", game_id);
+      let game_url = format!(
+        "http://127.0.0.1:{}/{}",
+        sinix_constants::SERVER_PORT,
+        game_id
+      );
       let index_url = format!("{}/index.html", game_url);
       let config_url = format!("{}/sinix.manifest.json", game_url);
 

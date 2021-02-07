@@ -7,7 +7,7 @@ use std::sync::mpsc::Sender;
 use serde::Serialize;
 use tauri::{plugin::Plugin, Webview};
 
-use crate::config;
+use crate::constants as sinix_constants;
 
 #[derive(Serialize)]
 pub struct Reply {
@@ -32,6 +32,7 @@ pub struct Reply {
 /// ```
 ///
 /// and notifies the game running on Sinix through events
+#[derive(Default)]
 pub struct UdpSocketServer;
 
 impl UdpSocketServer {
@@ -45,7 +46,7 @@ impl Plugin for UdpSocketServer {
     let (tx, rx) = channel();
 
     tauri::spawn(move || {
-      println!("udp_serve: {:?}", std::thread::current().id());
+      println!("udp_server: {:?}", std::thread::current().id());
       serve(tx);
     });
 
@@ -67,7 +68,7 @@ pub fn handle(rx: Receiver<String>) {
 }
 
 pub fn serve(tx: Sender<String>) {
-  let addr = format!("0.0.0.0:{}", config::UDP_SERVER_PORT);
+  let addr = format!("0.0.0.0:{}", sinix_constants::UDP_PORT);
   let socket = match UdpSocket::bind(addr) {
     Ok(s) => s,
     Err(e) => panic!("couldn't bind socket: {}", e),

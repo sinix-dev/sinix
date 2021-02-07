@@ -3,13 +3,27 @@
   windows_subsystem = "windows"
 )]
 
-use sinix::plugins;
-use sinix::root;
-
 mod cmd;
 
+use sinix::plugins;
+use tokio::runtime::Runtime;
+
 fn main() {
-  let sinix_root = root::SinixRoot::new();
+  env_logger::init();
+
+  tauri::spawn(|| {
+    let mut rt = Runtime::new().unwrap();
+
+    rt.block_on(async {
+      println!("server: {:?}", std::thread::current().id());
+
+      sinix::server::serve().await;
+    });
+  });
+
+  println!("main: {:?}", std::thread::current().id());
+
+  let sinix_root = plugins::SinixRoot::new();
   let game_webview = plugins::GameWebview::new();
   let udp_socket_server = plugins::UdpSocketServer::new();
 
