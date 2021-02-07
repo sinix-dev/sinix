@@ -3,8 +3,8 @@
   windows_subsystem = "windows"
 )]
 
-use sinix::root;
 use sinix::plugins;
+use sinix::root;
 
 mod cmd;
 

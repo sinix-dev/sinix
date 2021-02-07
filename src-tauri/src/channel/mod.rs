@@ -1,12 +1,12 @@
-use env_logger;
 use crate::config;
+use env_logger;
 
 use std::collections::HashMap;
 use std::convert::Infallible;
 use std::sync::Arc;
 
-use tokio::sync::{mpsc, RwLock};
 use tokio::runtime;
+use tokio::sync::{mpsc, RwLock};
 use warp::{ws::Message, Filter, Rejection};
 
 mod handler;

@@ -1,6 +1,6 @@
-use tauri::{plugin::Plugin, Webview};
 use crate::channel;
 use crate::game;
+use tauri::{plugin::Plugin, Webview};
 
 pub struct SinixRoot;
 
@@ -10,7 +10,7 @@ impl SinixRoot {
   }
 }
 
-fn init(){
+fn init() {
   channel::init();
   game::init();
 }
