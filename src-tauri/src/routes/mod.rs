@@ -1,6 +1,6 @@
+pub mod channel;
 pub mod game;
 pub mod health;
-pub mod channel;
 
 use warp::Rejection;
 

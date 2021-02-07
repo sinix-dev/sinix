@@ -24,8 +24,7 @@ pub fn rename() {
 
   println!("{}", manifest_path);
 
-  let manifest = fs::read_to_string(manifest_path)
-    .expect("Unable to read file");
+  let manifest = fs::read_to_string(manifest_path).expect("Unable to read file");
 
   let manifest: serde_json::Value =
     serde_json::from_str(&manifest).expect("JSON was not well-formatted");

@@ -45,12 +45,7 @@ pub fn route() -> impl Filter<Extract = (impl Reply,), Error = warp::Rejection> 
     .and(with_clients(clients))
     .and_then(handler::ws_handler);
 
-  warp::path!("channel")
-  .and(
-    register_routes
-      .or(publish)
-      .or(ws_route)
-  )
+  warp::path!("channel").and(register_routes.or(publish).or(ws_route))
 }
 
 fn with_clients(clients: Clients) -> impl Filter<Extract = (Clients,), Error = Infallible> + Clone {

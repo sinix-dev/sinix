@@ -11,12 +11,12 @@ use tokio::runtime::Runtime;
 fn main() {
   env_logger::init();
 
-  tauri::spawn(| | {
-    let mut rt  = Runtime::new().unwrap();
+  tauri::spawn(|| {
+    let mut rt = Runtime::new().unwrap();
 
     rt.block_on(async {
       println!("server: {:?}", std::thread::current().id());
-  
+
       sinix::server::serve().await;
     });
   });

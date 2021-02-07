@@ -1,6 +1,6 @@
-use warp::{Filter, Reply};
-use warp::http::StatusCode;
 use super::Result;
+use warp::http::StatusCode;
+use warp::{Filter, Reply};
 
 async fn health_handler() -> Result<impl Reply> {
   Ok(StatusCode::OK)

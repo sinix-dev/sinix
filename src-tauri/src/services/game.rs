@@ -1,12 +1,12 @@
 mod extract_and_copy;
 mod rename;
 
+use serde::Serialize;
 use std::fs;
 use std::path::Path;
-use serde::Serialize;
 
-use rename::rename;
 use extract_and_copy::extract_and_copy;
+use rename::rename;
 
 use crate::constants as sinix_constants;
 
@@ -16,7 +16,7 @@ pub struct Reply {
 }
 
 /// Create Games Directories
-pub fn init(){
+pub fn init() {
   let home_dir = tauri::api::path::home_dir().unwrap();
   let games_dir = Path::new(&home_dir)
     .join(sinix_constants::GAMES_DIR)

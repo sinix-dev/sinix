@@ -11,7 +11,7 @@ impl SinixRoot {
   }
 }
 
-fn init(){
+fn init() {
   game::init();
 }
 

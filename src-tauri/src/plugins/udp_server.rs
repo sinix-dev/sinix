@@ -1,5 +1,5 @@
-use std::str;
 use std::net::UdpSocket;
+use std::str;
 use std::sync::mpsc::channel;
 use std::sync::mpsc::Receiver;
 use std::sync::mpsc::Sender;
@@ -33,7 +33,7 @@ pub struct Reply {
 ///
 /// and notifies the game running on Sinix through events
 #[derive(Default)]
-pub struct UdpSocketServer; 
+pub struct UdpSocketServer;
 
 impl UdpSocketServer {
   pub fn new() -> Self {
@@ -58,7 +58,7 @@ impl Plugin for UdpSocketServer {
 }
 
 /// [WIP] Takes the signals and transmits to the game running on Sinix
-pub fn handle(rx: Receiver<String>){
+pub fn handle(rx: Receiver<String>) {
   for received in rx {
     println!("Got: {}", received);
     tauri::event::listen(String::from("udp-event"), move |msg| {
@@ -67,11 +67,11 @@ pub fn handle(rx: Receiver<String>){
   }
 }
 
-pub fn serve(tx: Sender<String>){
+pub fn serve(tx: Sender<String>) {
   let addr = format!("0.0.0.0:{}", sinix_constants::UDP_PORT);
   let socket = match UdpSocket::bind(addr) {
     Ok(s) => s,
-    Err(e) => panic!("couldn't bind socket: {}", e)
+    Err(e) => panic!("couldn't bind socket: {}", e),
   };
 
   let mut buf = [0; 2048];
@@ -81,13 +81,13 @@ pub fn serve(tx: Sender<String>){
       Ok((amt, _src)) => {
         let reply = str::from_utf8(&buf[..amt]).unwrap_or("");
         let reply = Reply {
-          data: String::from(reply)
+          data: String::from(reply),
         };
 
         tx.send(serde_json::to_string(&reply).unwrap())
           .map_err(|err| println!("{:?}", err))
           .ok();
-      },
+      }
       Err(e) => {
         println!("couldn't recieve a datagram: {}", e);
       }
