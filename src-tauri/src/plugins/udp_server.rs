@@ -45,7 +45,7 @@ impl Plugin for UdpSocketServer {
     let (tx, rx) = channel();
 
     tauri::spawn(move || {
-      println!("udp_serve: {:?}", std::thread::current().id());
+      println!("udp_server: {:?}", std::thread::current().id());
       serve(tx);
     });
 

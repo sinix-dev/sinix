@@ -6,13 +6,22 @@
 mod cmd;
 
 use sinix::plugins;
+use tokio::runtime::Runtime;
 
-#[tokio::main]
-async fn main() {
+fn main() {
   env_logger::init();
-  tokio::spawn(async {
-    sinix::server::serve().await;
+
+  tauri::spawn(| | {
+    let mut rt  = Runtime::new().unwrap();
+
+    rt.block_on(async {
+      println!("server: {:?}", std::thread::current().id());
+  
+      sinix::server::serve().await;
+    });
   });
+
+  println!("main: {:?}", std::thread::current().id());
 
   let sinix_root = plugins::SinixRoot::new();
   let game_webview = plugins::GameWebview::new();
