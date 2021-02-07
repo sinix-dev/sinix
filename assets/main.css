@@ -64,6 +64,11 @@ a {
   color: var(--color);
 }
 
+input {
+  outline: none;
+  color: var(--color);
+}
+
 .layout {
   height: 100vh;
   display: grid;

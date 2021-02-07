@@ -1,5 +1,15 @@
 <template>
   <div class="sidebar-wrapper">
+    <div class="search-bar">
+      <client-only>
+        <div class="search-icon-wrapper">
+          <feather class="search-icon" type="search" />
+        </div>
+      </client-only>
+      <div>
+        <input class="search-input" type="text" placeholder="Search">
+      </div>
+    </div>
     <nuxt-link to="/">
       <div class="item">
         <client-only>
@@ -65,9 +75,33 @@ export default {
   margin-right: 5px;
   color: var(--color-primary);
 }
+
+.search-icon {
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+}
 </style>
 
 <style scoped>
+.search-bar {
+  display: flex;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+  background: var(--bg-extra);
+}
+
+.search-input {
+  border: none;
+  font-size: 14px;
+  background: transparent;
+}
+
+.search-icon-wrapper {
+  margin-right: 5px;
+}
+
 .sidebar-wrapper {
   display: flex;
   padding: 10px;
