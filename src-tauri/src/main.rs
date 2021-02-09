@@ -23,14 +23,14 @@ fn main() {
 
   println!("main: {:?}", std::thread::current().id());
 
+  let game = plugins::Game::new();
   let sinix_root = plugins::SinixRoot::new();
-  let game_webview = plugins::GameWebview::new();
   let udp_socket_server = plugins::UdpSocketServer::new();
 
   tauri::AppBuilder::new()
     .plugin(udp_socket_server)
     .plugin(sinix_root)
-    .plugin(game_webview)
+    .plugin(game)
     .build()
     .run();
 }

@@ -1,15 +1,16 @@
 <template>
   <div class="page-wrapper">
     <h3>Collection</h3>
-    <div v-for="game in games" :key="game.name">
-      <span class="link" @click="open(game.name)">{{ game.name }}</span>
+    <div v-for="game in games" :key="game.slug">
+      <span class="link" @click="open(game.slug)">
+        {{ game.name }} v{{ game.version }}
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-import * as fs from "tauri/api/fs"
-import { emit } from "tauri/api/event"
+import { emit, listen } from "tauri/api/event"
 
 export default {
   data(){
@@ -17,16 +18,12 @@ export default {
       games: []
     }
   },
-  created(){
-    if (process.client){
-      fs.readDir("/home/sanket143/.sinix/games")
-        .then((files) => {
-          this.games = files
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+  mounted(){
+    listen("game-item", (response) => {
+      console.log(response)
+      this.games.push(response.payload)
+    })
+    emit("game-list")
   },
   methods: {
     open(game_id){
