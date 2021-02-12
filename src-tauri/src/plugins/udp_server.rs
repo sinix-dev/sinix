@@ -42,7 +42,7 @@ impl UdpSocketServer {
 }
 
 impl Plugin for UdpSocketServer {
-  fn created(&self, _webview: &mut Webview) {
+  fn created(&self, webview: &mut Webview) {
     let (tx, rx) = channel();
 
     tauri::spawn(move || {
@@ -50,20 +50,21 @@ impl Plugin for UdpSocketServer {
       serve(tx);
     });
 
+    let mut wm = webview.as_mut();
+
     tauri::spawn(move || {
       println!("udp_handle: {:?}", std::thread::current().id());
-      handle(rx);
+      handle(rx, &mut wm);
     });
   }
 }
 
 /// [WIP] Takes the signals and transmits to the game running on Sinix
-pub fn handle(rx: Receiver<String>) {
+pub fn handle(rx: Receiver<String>, webview: &mut tauri::WebviewMut) {
   for received in rx {
     println!("Got: {}", received);
-    tauri::event::listen(String::from("udp-event"), move |msg| {
-      println!("{}", msg.unwrap());
-    })
+    tauri::event::emit(webview, String::from("udp-event"), Some(received))
+      .expect("Cannot emit udp-event");
   }
 }
 
