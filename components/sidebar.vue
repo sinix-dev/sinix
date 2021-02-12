@@ -42,6 +42,14 @@
         <span>Settings</span>
       </div>
     </nuxt-link>
+    <nuxt-link to="/logs">
+      <div class="item">
+        <client-only>
+          <feather class="icon" type="radio" />
+        </client-only>
+        <span>Logs</span>
+      </div>
+    </nuxt-link>
   </div>
 </template>
 
