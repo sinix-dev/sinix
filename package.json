@@ -17,7 +17,7 @@
     "core-js": "^3.9.0",
     "feather-icons": "^4.28.0",
     "normalize.css": "^8.0.1",
-    "nuxt": "^2.14.12",
+    "nuxt": "^2.15.2",
     "tauri": "^0.14.1",
     "vue": "^2.6.12",
     "vue-feather": "^1.1.1"
