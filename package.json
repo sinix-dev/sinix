@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.1",
-    "core-js": "^3.10.1",
+    "core-js": "^3.15.2",
     "feather-icons": "^4.28.0",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.15.4",
