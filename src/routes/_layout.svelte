@@ -1,12 +1,12 @@
 <main class="flex">
   <Sidebar />
+  <div>
+    <slot />
+  </div>
 </main>
 
 <script>
-import Sidebar from "./components/Sidebar.svelte"
-
-let name = "Sinix"
-localStorage.setItem("name", "Sinix")
+import Sidebar from "../components/Sidebar.svelte"
 </script>
 
 <style>
