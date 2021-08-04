@@ -1,34 +1,29 @@
 {
   "name": "sinix",
-  "version": "0.1.0-alpha.0",
-  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
     "tauri": "tauri",
-    "generate": "nuxt generate",
-    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint": "npm run lint:js",
-    "lint:fix": "eslint --ext .js,.vue --ignore-path .gitignore . --fix"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public --no-clear"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.1",
-    "core-js": "^3.8.3",
-    "feather-icons": "^4.28.0",
-    "normalize.css": "^8.0.1",
-    "nuxt": "^2.14.12",
-    "tauri": "^0.14.1",
-    "vue": "^2.6.12",
-    "vue-feather": "^1.1.1"
+    "@tauri-apps/api": "^1.0.0-beta.5",
+    "sirv-cli": "^1.0.12"
   },
   "devDependencies": {
-    "@nuxtjs/color-mode": "^2.0.3",
-    "@nuxtjs/eslint-config": "^5.0.0",
-    "@nuxtjs/eslint-module": "^3.0.2",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.19.0",
-    "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-vue": "^7.5.0"
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@tauri-apps/cli": "^1.0.0-beta.6",
+    "prettier": "^2.3.2",
+    "prettier-plugin-svelte": "^2.3.1",
+    "rollup": "^2.55.1",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-svelte": "^7.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^3.41.0"
   }
 }

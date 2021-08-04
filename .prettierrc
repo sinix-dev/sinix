@@ -1,0 +1,10 @@
+{
+  "singleQuote": false,
+  "arrowParens": "always",
+  "semi": false,
+  "tabWidth": 2,
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "svelteIndentScriptAndStyle": false,
+  "svelteSortOrder": "options-markup-scripts-styles"
+}

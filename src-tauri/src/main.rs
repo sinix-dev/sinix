@@ -3,34 +3,8 @@
   windows_subsystem = "windows"
 )]
 
-mod cmd;
-
-use sinix::plugins;
-use tokio::runtime::Runtime;
-
 fn main() {
-  env_logger::init();
-
-  tauri::spawn(|| {
-    let mut rt = Runtime::new().unwrap();
-
-    rt.block_on(async {
-      println!("server: {:?}", std::thread::current().id());
-
-      sinix::server::serve().await;
-    });
-  });
-
-  println!("main: {:?}", std::thread::current().id());
-
-  let game = plugins::Game::new();
-  let sinix_root = plugins::SinixRoot::new();
-  let udp_socket_server = plugins::UdpSocketServer::new();
-
-  tauri::AppBuilder::new()
-    .plugin(udp_socket_server)
-    .plugin(sinix_root)
-    .plugin(game)
-    .build()
-    .run();
+  tauri::Builder::default()
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
