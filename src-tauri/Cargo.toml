@@ -1,11 +1,11 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
-default-run = "app"
+name = "sinix"
+version = "0.1.0-alpha.0"
+description = "Sinix Desktop"
+authors = ["Sanket Chaudhari"]
+license = "MIT"
+repository = "https://github.com/sinix-dev/sinix"
+default-run = "sinix"
 edition = "2018"
 build = "src/build.rs"
 
