@@ -4,7 +4,7 @@
     "version": "0.1.0"
   },
   "build": {
-    "distDir": "../pblic",
+    "distDir": "../__sapper__/export/",
     "devPath": "http://localhost:5000",
     "beforeDevCommand": "",
     "beforeBuildCommand": ""
