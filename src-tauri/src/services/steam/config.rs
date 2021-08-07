@@ -1,3 +1,4 @@
+use std::fs;
 use tauri::api::path;
 
 static STEAM_DATA_DIRS: &'static [&str] = &[
@@ -24,10 +25,18 @@ fn search_in_steam_dirs(file: &str) -> Option<String> {
     return None;
 }
 
+fn get_steam_user() -> super::util::SteamUser {
+    let filename = search_in_steam_dirs("config/loginusers.vdf").unwrap();
+    let contents = fs::read_to_string(filename).expect("Something went wrong reading the file");
+
+    crate::services::steam::util::steam_vdf_parser(&contents)
+}
+
 #[cfg(test)]
 mod tests {
     #[test]
     fn scan_dirs() {
-        super::search_in_steam_dirs("config/loginusers.vdf");
+        let steam_user = super::get_steam_user();
+        println!("{:?}", steam_user);
     }
 }

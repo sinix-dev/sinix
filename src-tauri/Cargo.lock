@@ -2497,6 +2497,8 @@ dependencies = [
 name = "sinix"
 version = "0.1.0-alpha.0"
 dependencies = [
+ "lazy_static",
+ "regex",
  "serde",
  "serde_json",
  "tauri",
