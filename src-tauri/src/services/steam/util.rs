@@ -96,3 +96,28 @@ pub fn steam_vdf_parser(steam_vdf: &str) -> SteamUser {
 
   steam_user
 }
+
+#[cfg(test)]
+mod tests {
+  #[test]
+  fn test_steam_vdf_parsing() {
+    let steam_login_users_vdf = "
+      \"users\"
+      {
+      \t\"12345678987654\"
+      \t{
+      \t\t\"AccountName\"\t\"sanket_m2\"
+      \t\t\"PersonaName\"\t\"sanket143__\"
+      \t\t\"RememberPassword\"\t\"1\"
+      \t\t\"MostRecent\"\t\"1\"
+      \t\t\"Timestamp\"\t\"1628187522\"
+      \t}
+      }
+    ";
+
+    let steam_user = super::steam_vdf_parser(steam_login_users_vdf);
+    assert_eq!(steam_user.steam_id.unwrap(), "12345678987654");
+    assert_eq!(steam_user.account_name.unwrap(), "sanket_m2");
+    assert_eq!(steam_user.persona_name.unwrap(), "sanket143__");
+  }
+}

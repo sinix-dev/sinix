@@ -31,12 +31,3 @@ fn get_steam_user() -> super::util::SteamUser {
 
   crate::services::steam::util::steam_vdf_parser(&contents)
 }
-
-#[cfg(test)]
-mod tests {
-  #[test]
-  fn scan_dirs() {
-    let steam_user = super::get_steam_user();
-    println!("{:?}", steam_user);
-  }
-}
